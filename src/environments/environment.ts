@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig: {
+    apiKey: "AIzaSyBkymfM7VtYzWRiSNui_59Ph5lRvL0DV_Q",
+    authDomain: "astapixi.firebaseapp.com",
+    projectId: "astapixi",
+    storageBucket: "astapixi.appspot.com",
+    messagingSenderId: "742749180152",
+    appId: "1:742749180152:web:2d1d26fe44169b71f5eb0d",
+    measurementId: "G-5YKLNXF3HE"
+  }
 };
 
 /*

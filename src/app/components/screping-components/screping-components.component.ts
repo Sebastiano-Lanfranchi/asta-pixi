@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScrepingComponentsComponent implements OnInit {
 
- 
-  URL = "https://en.wikipedia.org/wiki/Cricket_World_Cup";
+  //https://medium.com/@charlyyy/how-to-bypass-cors-and-scrap-any-websites-using-javascript-serverless-76115eeecddd
+  URL = "https://crossorigin.me/https://en.wikipedia.org/wiki/Cricket_World_Cup";
 
   constructor() { }
 

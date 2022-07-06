@@ -1,0 +1,452 @@
+[
+    {
+      "#": 1,
+      "Giocatori": "Wojciech SzczesnyW. SzczesnyPortiere",
+      "": "",
+      "Nasc./Età": "Wojciech SzczesnyW. Szczesny",
+      "Naz": "Portiere",
+      "Valore di mercato": "Wojciech Szczesny"
+    },
+    {
+      "#": "",
+      "Giocatori": "Wojciech SzczesnyW. Szczesny"
+    },
+    {
+      "#": "Portiere"
+    },
+    {
+      "#": 36,
+      "Giocatori": "Mattia PerinM. PerinPortiere",
+      "": "",
+      "Nasc./Età": "Mattia PerinM. Perin",
+      "Naz": "Portiere",
+      "Valore di mercato": "Mattia Perin"
+    },
+    {
+      "#": "",
+      "Giocatori": "Mattia PerinM. Perin"
+    },
+    {
+      "#": "Portiere"
+    },
+    {
+      "#": "-",
+      "Giocatori": "Stefano GoriS. GoriPortiere",
+      "": "",
+      "Nasc./Età": "Stefano GoriS. Gori",
+      "Naz": "Portiere",
+      "Valore di mercato": "Stefano Gori"
+    },
+    {
+      "#": "",
+      "Giocatori": "Stefano GoriS. Gori"
+    },
+    {
+      "#": "Portiere"
+    },
+    {
+      "#": 23,
+      "Giocatori": "Carlo PinsoglioC. PinsoglioPortiere",
+      "": "",
+      "Nasc./Età": "Carlo PinsoglioC. Pinsoglio",
+      "Naz": "Portiere",
+      "Valore di mercato": "Carlo Pinsoglio"
+    },
+    {
+      "#": "",
+      "Giocatori": "Carlo PinsoglioC. Pinsoglio"
+    },
+    {
+      "#": "Portiere"
+    },
+    {
+      "#": 4,
+      "Giocatori": "Matthijs de LigtM. de LigtDifensore centrale",
+      "": "",
+      "Nasc./Età": "Matthijs de LigtM. de Ligt",
+      "Naz": "Difensore centrale",
+      "Valore di mercato": "Matthijs de Ligt"
+    },
+    {
+      "#": "",
+      "Giocatori": "Matthijs de LigtM. de Ligt"
+    },
+    {
+      "#": "Difensore centrale"
+    },
+    {
+      "#": 19,
+      "Giocatori": "Leonardo BonucciL. BonucciDifensore centrale",
+      "": "",
+      "Nasc./Età": "Leonardo BonucciL. Bonucci",
+      "Naz": "Difensore centrale",
+      "Valore di mercato": "Leonardo Bonucci"
+    },
+    {
+      "#": "",
+      "Giocatori": "Leonardo BonucciL. Bonucci"
+    },
+    {
+      "#": "Difensore centrale"
+    },
+    {
+      "#": "-",
+      "Giocatori": "Federico GattiF. GattiDifensore centrale",
+      "": "",
+      "Nasc./Età": "Federico GattiF. Gatti",
+      "Naz": "Difensore centrale",
+      "Valore di mercato": "Federico Gatti"
+    },
+    {
+      "#": "",
+      "Giocatori": "Federico GattiF. Gatti"
+    },
+    {
+      "#": "Difensore centrale"
+    },
+    {
+      "#": "-",
+      "Giocatori": "Radu DragusinR. DragusinDifensore centrale",
+      "": "",
+      "Nasc./Età": "Radu DragusinR. Dragusin",
+      "Naz": "Difensore centrale",
+      "Valore di mercato": "Radu Dragusin"
+    },
+    {
+      "#": "",
+      "Giocatori": "Radu DragusinR. Dragusin"
+    },
+    {
+      "#": "Difensore centrale"
+    },
+    {
+      "#": 24,
+      "Giocatori": "Daniele RuganiD. RuganiDifensore centrale",
+      "": "",
+      "Nasc./Età": "Daniele RuganiD. Rugani",
+      "Naz": "Difensore centrale",
+      "Valore di mercato": "Daniele Rugani"
+    },
+    {
+      "#": "",
+      "Giocatori": "Daniele RuganiD. Rugani"
+    },
+    {
+      "#": "Difensore centrale"
+    },
+    {
+      "#": 3,
+      "Giocatori": "Giorgio ChielliniG. Chiellini Difensore centrale",
+      "": "",
+      "Nasc./Età": "Giorgio ChielliniG. Chiellini",
+      "Naz": "Difensore centrale",
+      "Valore di mercato": "Giorgio Chiellini"
+    },
+    {
+      "#": "",
+      "Giocatori": "Giorgio ChielliniG. Chiellini"
+    },
+    {
+      "#": "Difensore centrale"
+    },
+    {
+      "#": 17,
+      "Giocatori": "Luca PellegriniL. PellegriniTerzino sinistro",
+      "": "",
+      "Nasc./Età": "Luca PellegriniL. Pellegrini",
+      "Naz": "Terzino sinistro",
+      "Valore di mercato": "Luca Pellegrini"
+    },
+    {
+      "#": "",
+      "Giocatori": "Luca PellegriniL. Pellegrini"
+    },
+    {
+      "#": "Terzino sinistro"
+    },
+    {
+      "#": 12,
+      "Giocatori": "Alex SandroAlex SandroTerzino sinistro",
+      "": "",
+      "Nasc./Età": "Alex SandroAlex Sandro",
+      "Naz": "Terzino sinistro",
+      "Valore di mercato": "Alex Sandro"
+    },
+    {
+      "#": "",
+      "Giocatori": "Alex SandroAlex Sandro"
+    },
+    {
+      "#": "Terzino sinistro"
+    },
+    {
+      "#": 6,
+      "Giocatori": "DaniloDaniloTerzino destro",
+      "": "",
+      "Nasc./Età": "DaniloDanilo",
+      "Naz": "Terzino destro",
+      "Valore di mercato": "Danilo"
+    },
+    {
+      "#": "",
+      "Giocatori": "DaniloDanilo"
+    },
+    {
+      "#": "Terzino destro"
+    },
+    {
+      "#": 11,
+      "Giocatori": "Juan CuadradoJ. CuadradoTerzino destro",
+      "": "",
+      "Nasc./Età": "Juan CuadradoJ. Cuadrado",
+      "Naz": "Terzino destro",
+      "Valore di mercato": "Juan Cuadrado"
+    },
+    {
+      "#": "",
+      "Giocatori": "Juan CuadradoJ. Cuadrado"
+    },
+    {
+      "#": "Terzino destro"
+    },
+    {
+      "#": 2,
+      "Giocatori": "Mattia De SciglioM. De SciglioTerzino destro",
+      "": "",
+      "Nasc./Età": "Mattia De SciglioM. De Sciglio",
+      "Naz": "Terzino destro",
+      "Valore di mercato": "Mattia De Sciglio"
+    },
+    {
+      "#": "",
+      "Giocatori": "Mattia De SciglioM. De Sciglio"
+    },
+    {
+      "#": "Terzino destro"
+    },
+    {
+      "#": 27,
+      "Giocatori": "Manuel LocatelliM. LocatelliMediano",
+      "": "",
+      "Nasc./Età": "Manuel LocatelliM. Locatelli",
+      "Naz": "Mediano",
+      "Valore di mercato": "Manuel Locatelli"
+    },
+    {
+      "#": "",
+      "Giocatori": "Manuel LocatelliM. Locatelli"
+    },
+    {
+      "#": "Mediano"
+    },
+    {
+      "#": 28,
+      "Giocatori": "Denis ZakariaD. ZakariaMediano",
+      "": "",
+      "Nasc./Età": "Denis ZakariaD. Zakaria",
+      "Naz": "Mediano",
+      "Valore di mercato": "Denis Zakaria"
+    },
+    {
+      "#": "",
+      "Giocatori": "Denis ZakariaD. Zakaria"
+    },
+    {
+      "#": "Mediano"
+    },
+    {
+      "#": 5,
+      "Giocatori": "ArthurArthurMediano",
+      "": "",
+      "Nasc./Età": "ArthurArthur",
+      "Naz": "Mediano",
+      "Valore di mercato": "Arthur"
+    },
+    {
+      "#": "",
+      "Giocatori": "ArthurArthur"
+    },
+    {
+      "#": "Mediano"
+    },
+    {
+      "#": "-",
+      "Giocatori": "Nicolò RovellaN. RovellaMediano",
+      "": "",
+      "Nasc./Età": "Nicolò RovellaN. Rovella",
+      "Naz": "Mediano",
+      "Valore di mercato": "Nicolò Rovella"
+    },
+    {
+      "#": "",
+      "Giocatori": "Nicolò RovellaN. Rovella"
+    },
+    {
+      "#": "Mediano"
+    },
+    {
+      "#": 14,
+      "Giocatori": "Weston McKennieW. McKennieCentrale",
+      "": "",
+      "Nasc./Età": "Weston McKennieW. McKennie",
+      "Naz": "Centrale",
+      "Valore di mercato": "Weston McKennie"
+    },
+    {
+      "#": "",
+      "Giocatori": "Weston McKennieW. McKennie"
+    },
+    {
+      "#": "Centrale"
+    },
+    {
+      "#": 25,
+      "Giocatori": "Adrien RabiotA. RabiotCentrale",
+      "": "",
+      "Nasc./Età": "Adrien RabiotA. Rabiot",
+      "Naz": "Centrale",
+      "Valore di mercato": "Adrien Rabiot"
+    },
+    {
+      "#": "",
+      "Giocatori": "Adrien RabiotA. Rabiot"
+    },
+    {
+      "#": "Centrale"
+    },
+    {
+      "#": "-",
+      "Giocatori": "Nicolò FagioliN. FagioliCentrale",
+      "": "",
+      "Nasc./Età": "Nicolò FagioliN. Fagioli",
+      "Naz": "Centrale",
+      "Valore di mercato": "Nicolò Fagioli"
+    },
+    {
+      "#": "",
+      "Giocatori": "Nicolò FagioliN. Fagioli"
+    },
+    {
+      "#": "Centrale"
+    },
+    {
+      "#": 47,
+      "Giocatori": "Fabio MirettiF. MirettiCentrale",
+      "": "",
+      "Nasc./Età": "Fabio MirettiF. Miretti",
+      "Naz": "Centrale",
+      "Valore di mercato": "Fabio Miretti"
+    },
+    {
+      "#": "",
+      "Giocatori": "Fabio MirettiF. Miretti"
+    },
+    {
+      "#": "Centrale"
+    },
+    {
+      "#": 8,
+      "Giocatori": "Aaron RamseyA. RamseyCentrale",
+      "": "",
+      "Nasc./Età": "Aaron RamseyA. Ramsey",
+      "Naz": "Centrale",
+      "Valore di mercato": "Aaron Ramsey"
+    },
+    {
+      "#": "",
+      "Giocatori": "Aaron RamseyA. Ramsey"
+    },
+    {
+      "#": "Centrale"
+    },
+    {
+      "#": "-",
+      "Giocatori": "Marko PjacaM. PjacaAla sinistra",
+      "": "",
+      "Nasc./Età": "Marko PjacaM. Pjaca",
+      "Naz": "Ala sinistra",
+      "Valore di mercato": "Marko Pjaca"
+    },
+    {
+      "#": "",
+      "Giocatori": "Marko PjacaM. Pjaca"
+    },
+    {
+      "#": "Ala sinistra"
+    },
+    {
+      "#": 38,
+      "Giocatori": "Marley AkéM. AkéAla sinistra",
+      "": "",
+      "Nasc./Età": "Marley AkéM. Aké",
+      "Naz": "Ala sinistra",
+      "Valore di mercato": "Marley Aké"
+    },
+    {
+      "#": "",
+      "Giocatori": "Marley AkéM. Aké"
+    },
+    {
+      "#": "Ala sinistra"
+    },
+    {
+      "#": 7,
+      "Giocatori": "Federico ChiesaF. Chiesa Ala destra",
+      "": "",
+      "Nasc./Età": "Federico ChiesaF. Chiesa",
+      "Naz": "Ala destra",
+      "Valore di mercato": "Federico Chiesa"
+    },
+    {
+      "#": "",
+      "Giocatori": "Federico ChiesaF. Chiesa"
+    },
+    {
+      "#": "Ala destra"
+    },
+    {
+      "#": 9,
+      "Giocatori": "Dušan VlahovićD. VlahovićPunta centrale",
+      "": "",
+      "Nasc./Età": "Dušan VlahovićD. Vlahović",
+      "Naz": "Punta centrale",
+      "Valore di mercato": "Dušan Vlahović"
+    },
+    {
+      "#": "",
+      "Giocatori": "Dušan VlahovićD. Vlahović"
+    },
+    {
+      "#": "Punta centrale"
+    },
+    {
+      "#": 18,
+      "Giocatori": "Moise KeanM. KeanPunta centrale",
+      "": "",
+      "Nasc./Età": "Moise KeanM. Kean",
+      "Naz": "Punta centrale",
+      "Valore di mercato": "Moise Kean"
+    },
+    {
+      "#": "",
+      "Giocatori": "Moise KeanM. Kean"
+    },
+    {
+      "#": "Punta centrale"
+    },
+    {
+      "#": 21,
+      "Giocatori": "Kaio JorgeKaio Jorge Punta centrale",
+      "": "",
+      "Nasc./Età": "Kaio JorgeKaio Jorge",
+      "Naz": "Punta centrale",
+      "Valore di mercato": "Kaio Jorge"
+    },
+    {
+      "#": "",
+      "Giocatori": "Kaio JorgeKaio Jorge"
+    },
+    {
+      "#": "Punta centrale"
+    }
+  ]

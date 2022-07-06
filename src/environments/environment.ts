@@ -12,7 +12,8 @@ export const environment = {
     messagingSenderId: "742749180152",
     appId: "1:742749180152:web:2d1d26fe44169b71f5eb0d",
     measurementId: "G-5YKLNXF3HE"
-  }
+  },
+  apiSoccer: 'https://app.sportdataapi.com/api/v1/soccer/countries?apikey=ee7cf4e0-fd42-11ec-9c23-9b20aa4ddbb1&continent=Europe'
 };
 
 /*

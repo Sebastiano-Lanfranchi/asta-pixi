@@ -32,6 +32,8 @@
     "@angular/cli": "~14.0.4",
     "@angular/compiler-cli": "^14.0.0",
     "@types/jasmine": "~4.0.0",
+    "@types/lodash": "^4.14.182",
+    "axios": "^0.27.2",
     "html-table-to-json": "^1.0.0",
     "jasmine-core": "~4.1.0",
     "karma": "~6.3.0",
@@ -39,6 +41,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "lodash": "^4.17.21",
+    "sweetalert2": "^11.4.20",
     "tabletojson": "^2.0.7",
     "typescript": "~4.7.2"
   }

@@ -1,20 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { FormsModule } from '@angular/forms';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment'
 import { AppComponent } from './app.component';
-import { ScrepingComponentsComponent } from './components/screping-components/screping-components.component';
+import { Header } from './components/header-components/header-components.component';
+import { SquadreGenComponent } from './components/squadre-gen/squadre-gen.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ScrepingComponentsComponent
+    Header,
+    SquadreGenComponent
   ],
   imports: [
     BrowserModule,
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    provideFirestore(() => getFirestore()),
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

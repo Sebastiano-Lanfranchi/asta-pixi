@@ -1,0 +1,25 @@
+<div class="container d-flex" style="width: 95%;">
+    <div class="preview-container" style="color: aliceblue; width: 25%;" *ngIf="squad != undefined">
+        <div>{{squad.nome}}</div>
+     </div>
+    <div style="width: 50%; text-align: center">
+        <label for="exampleFormControlInput1" class="form-label text-light">Nome Squadra</label>
+        <input type="text" class="form-control bg-dark" style="width:400px; color:aliceblue; margin: 0 auto;"
+            id="exampleFormControlInput1" placeholder="FCDONETSK" [(ngModel)]="squad.nome">
+        <br />
+        <label for="exampleFormControlInput1" class="form-label text-light">Crediti</label>
+        <input type="number" class="form-control bg-dark" style="width:400px; color:aliceblue; margin: 0 auto;"
+            id="exampleFormControlInput1" placeholder="€cazzi$" step="1" min="0" [(ngModel)]="squad.crediti">
+        <br />
+        <label for="exampleFormControlInput1" class="form-label text-light">Logo</label>
+        <input type="text" class="form-control bg-dark" style="width:400px; color:aliceblue; margin: 0 auto;"
+            id="exampleFormControlInput1" placeholder="https://unacasettaincanada.com/" [(ngModel)]="squad.logo">
+            <br />
+            <div><button type="button" class="btn btn-success" (click)="firebaseService.CreateSquad(squad)">Aggiungi</button></div>
+    </div>
+    <div class="preview-container" style="color: aliceblue; width: 25%;" *ngIf="squad != undefined">
+       <div *ngIf="squad.nome != ''"><h3>{{squad.nome}}</h3></div>
+       <div *ngIf="squad.crediti != 0">{{squad.crediti}} crediti</div>
+       <div *ngIf="squad.logo != ''"><img [src]="squad.logo" alt='logo' style="width: 150px; height: 150px"></div>
+    </div>
+</div>

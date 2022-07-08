@@ -1,9 +1,10 @@
+<div *ngIf="daGenerare" style="color:aliceblue; text-align:center"><h1>Devi generare una sessione nuova di estrazione</h1></div>
 <div style="text-align: start; margin-left: 30px">
     <button *ngIf="daGenerare" (click)="GenerateData()" type="button" class="btn btn-success">Genera estrazione</button>
     <button *ngIf="daGenerare == false" (click)="Elimina()" type="button" class="btn btn-danger">Elimina
         estrazione</button>
 </div>
-<div class="container">
+<div class="container" *ngIf="!daGenerare">
     <div style="text-align: center; margin-bottom: 20px">
         <select [(ngModel)]="roleSelected">
             <option *ngFor="let position of roleArr" [value]="position">{{position}}</option>
@@ -42,5 +43,4 @@
     <div style="text-align: end;">
         <button type="button" class="btn btn-light" (click)="SelectRandom()">Estrai nuovo</button>
     </div>
-
 </div>

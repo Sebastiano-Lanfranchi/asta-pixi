@@ -1,2 +1,3 @@
-<app-header-components></app-header-components>
-<app-squadre-gen></app-squadre-gen>
+<app-header></app-header>
+<app-squadre-gen *ngIf="switchPage.isGenSquad"></app-squadre-gen>
+<app-estrazione *ngIf="switchPage.isEstraz"></app-estrazione>

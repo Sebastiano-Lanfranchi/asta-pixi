@@ -5,14 +5,16 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment'
 import { AppComponent } from './app.component';
-import { Header } from './components/header-components/header-components.component';
+import { HeaderComponent } from './components/header-components/header.component';
 import { SquadreGenComponent } from './components/squadre-gen/squadre-gen.component';
+import { EstrazioneComponent } from './components/estrazione/estrazione.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Header,
-    SquadreGenComponent
+    HeaderComponent,
+    SquadreGenComponent,
+    EstrazioneComponent
   ],
   imports: [
     BrowserModule,

@@ -8,8 +8,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header-components/header.component';
 import { SquadreGenComponent } from './components/squadre-gen/squadre-gen.component';
 import { EstrazioneComponent } from './components/estrazione/estrazione.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+
 
 @NgModule({
   declarations: [
@@ -19,12 +18,10 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     EstrazioneComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore())
+    BrowserModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

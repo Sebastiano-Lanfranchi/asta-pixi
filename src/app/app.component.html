@@ -1,3 +1,23 @@
 <app-header></app-header>
-<app-squadre-gen *ngIf="switchPage.isGenSquad"></app-squadre-gen>
-<app-estrazione *ngIf="switchPage.isEstraz"></app-estrazione>
+<div *ngIf="auth.user | async as user; else showLogin">
+    <app-squadre-gen *ngIf="switchPage.isGenSquad"></app-squadre-gen>
+    <app-estrazione *ngIf="switchPage.isEstraz"></app-estrazione>
+</div>
+<ng-template #showLogin>
+    <div class="d-flex" style="flex-direction: column; justify-content: space-around; align-items: center">
+        <div style="width: 200px">
+            <label for="email" style="color:aliceblue">Email</label>
+            <input type="email" id="email" [(ngModel)]="email">
+        </div>
+        <div style="width: 200px">
+            <label for="password" style="color:aliceblue">Password</label>
+            <input type="password" id="password" [(ngModel)]="password">
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary"
+                (click)="login()">Sign in</button>
+        </div>
+    </div>
+
+
+</ng-template>

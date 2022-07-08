@@ -44,7 +44,9 @@
       display: flex;
   
       li {
+        display: flex;
         margin: 50px;
+        align-items: center;
   
         a {
           text-decoration: none;

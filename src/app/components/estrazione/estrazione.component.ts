@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase-service.service'
 import Swal from 'sweetalert2';
 import * as SerieA from '../../json/serieA.json';
-import { Squad } from 'src/app/models/squad.model';
 
 @Component({
   selector: 'app-estrazione',
   templateUrl: './estrazione.component.html',
   styleUrls: ['./estrazione.component.scss']
 })
+
 export class EstrazioneComponent implements OnInit {
   dataTeams!: any;
   players: any = [];
@@ -21,7 +21,6 @@ export class EstrazioneComponent implements OnInit {
   roleArr = ['Goalkeeper', 'Defender', 'Midfielder', 'Attacker'];
   roleSelected = 'Goalkeeper';
   estrMancanti = 0;
-
 
   constructor(public firebaseService: FirebaseService) { }
 
@@ -86,7 +85,6 @@ export class EstrazioneComponent implements OnInit {
         }
       }
     })
-
   }
 
   SelectRandom() {
@@ -122,6 +120,17 @@ export class EstrazioneComponent implements OnInit {
     localStorage.setItem('players', JSON.stringify(this.playerArr));
   }
 
+  SelectFiltered(nome: string, team: string, role: string){
+    this.playerArr = JSON.parse(localStorage.getItem('players')!).sort(() => 0.5 - Math.random());
+    let tempArr =[...this.playerArr];
+    if(nome != ''){
+      tempArr = tempArr.find((x: any)=> x.name.toLowerCase().include(nome.toLowerCase()));
+    }else if( team != '' && team != null){
+      tempArr = tempArr.find((x: any)=> x.team == team);
+    }else if( role != '' && role != null){
+      tempArr = tempArr.find((x: any)=> x.position == role);
+    }
+  }
 
   GenerateData() {
     this.dataTeams = SerieA;
@@ -146,7 +155,6 @@ export class EstrazioneComponent implements OnInit {
   }
 
   Elimina() {
-
     Swal.fire({
       title: "Sicuro di voler elmminare l'estrazione corrente?",
       text: "Tutti i giocatori estratti e acquistati saranno riportati allo stato iniziale",

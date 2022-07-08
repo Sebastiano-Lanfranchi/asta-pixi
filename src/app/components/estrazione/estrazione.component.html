@@ -1,1 +1,33 @@
-<p>estrazione works!</p>
+<p style="color:aliceblue">estrazione works!</p>
+<div>
+    <button *ngIf="daGenerare" (click)="GenerateData()" type="button" class="btn btn-success">Genera estrazione</button>
+    <button *ngIf="daGenerare == false" (click)="Elimina()" type="button" class="btn btn-danger">Elimina
+        estrazione</button>
+</div>
+<div class="container">
+    <select [(ngModel)]="roleSelected">
+        <option *ngFor="let position of roleArr" [value]="position">{{position}}</option>
+    </select>
+    <div class="card">
+        <div class="card-img"><img style=" display: block; margin-left: auto; margin-right: auto;" [src]="selectedPlayer.photo"></div>
+        <div class="card-body">
+            <div class="d-flex justify-content-around">
+                <div><b>{{selectedPlayer.name}}</b></div>
+            </div>
+            <div class="d-flex justify-content-around">
+                <div>Age: {{selectedPlayer.age}}</div>
+                <div>Role: {{selectedPlayer.position}}</div>
+            </div>
+            <div class="d-flex justify-content-around">
+                <div>Team: {{selectedPlayer.team}}</div>
+             
+            </div>
+            <div class="d-flex justify-content-around">
+              
+                <div><img style="width: 75px; height: 75px" [src]="selectedPlayer.logoT"></div>
+            </div>
+        </div>
+        <div class="card-footer"></div>
+    </div>
+    <button type="button" class="btn btn-light" (click)="SelectRandom()">Estrai nuovo</button>
+</div>

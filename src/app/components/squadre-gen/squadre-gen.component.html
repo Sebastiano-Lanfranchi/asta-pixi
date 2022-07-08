@@ -13,8 +13,9 @@
                 <tr *ngFor="let squadArr of arrSquadre" class="text-center">
                     <th scope="row">{{squadArr.nome}}</th>
                     <td>{{squadArr.crediti}}</td>
-                    <td><img  style="width: 20px; height:20px" [src]="squadArr.logo"></td>
-                    <td><i class="fa-solid fa-trash text-danger cPointer" (click)="firebaseService.DeleteSquad(squadArr)"></i></td>
+                    <td><img style="width: 20px; height:20px" [src]="squadArr.logo"></td>
+                    <td><i class="fa-solid fa-trash text-danger cPointer"
+                            (click)="firebaseService.DeleteSquad(squadArr)"></i></td>
                 </tr>
             </tbody>
         </table>

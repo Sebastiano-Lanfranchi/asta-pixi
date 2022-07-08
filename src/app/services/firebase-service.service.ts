@@ -44,6 +44,10 @@ export class FirebaseService {
     return data;
   }
 
+  public UpdateSquad(squad: any){
+    this.db.collection('squadre').doc(squad.nome).set(Object.assign({}, squad));
+  }
+
   public DeleteSquad(squad: Squad) {
     Swal.fire({
       title: "Sicuro di voler eliminare " + squad.nome + "?",

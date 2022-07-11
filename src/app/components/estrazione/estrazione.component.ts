@@ -132,13 +132,13 @@ export class EstrazioneComponent implements OnInit {
 
   SelectFiltered() {
     this.playerArr = JSON.parse(localStorage.getItem('players')!).sort(() => 0.5 - Math.random());
-    let tempArr = [...this.playerArr];
+    let tempArr = [...this.playerArr].filter(p => p.preso == false);
     this.arrfilter = [];
     if (this.filtroNome != '' && this.filtroTeam != '' && this.filtroRole != '') {
       this.arrfilter.push(tempArr.filter((x: any) => x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && x.team.toLowerCase().includes(this.filtroTeam.toLowerCase()) && x.position == this.filtroRole));
     } else if(this.filtroNome == '' && this.filtroTeam != '' && this.filtroRole == ''){
       this.arrfilter.push(tempArr.filter((x: any) => x.team.toLowerCase().includes(this.filtroTeam.toLowerCase())));
-    } else if(this.filtroNome != '' && this.filtroTeam == '' && this.filtroRole != ''){
+    } else if(this.filtroNome != '' && this.filtroTeam == '' && this.filtroRole == ''){
       this.arrfilter.push(tempArr.filter((x: any) => x.name.toLowerCase().includes(this.filtroNome.toLowerCase())));
     } else if(this.filtroNome != '' && this.filtroTeam != '' && this.filtroRole == ''){
       this.arrfilter.push(tempArr.filter((x: any) => x.position == this.filtroRole));

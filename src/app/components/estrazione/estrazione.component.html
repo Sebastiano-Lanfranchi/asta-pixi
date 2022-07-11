@@ -89,10 +89,10 @@
             </div>
         </div>
         <div class="flex justify-around w-3/4 flex-wrap" *ngIf="ready">
-            <div class="flex justify-center" *ngFor="let find of arrfilter[0]">
-                <div class="rounded-lg shadow-lg bg-slate-500 max-w-sm">
+            <div class="flex justify-center w-1/3" *ngFor="let find of arrfilter[0]">
+                <div class="rounded-lg shadow-lg bg-slate-500 max-w-sm text-center">
                     <a href="#!">
-                        <img class="rounded-t-lg" [src]="find.photo" alt="" />
+                        <img class="rounded-t-lg m-1" style="margin: 0 auto" [src]="find.photo" alt="" />
                     </a>
                     <div class="p-6">
                         <h5 class="text-gray-900 text-xl font-medium mb-2">{{find.name}}</h5>

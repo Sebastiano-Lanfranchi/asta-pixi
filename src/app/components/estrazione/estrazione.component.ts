@@ -3,6 +3,12 @@ import { FirebaseService } from '../../services/firebase-service.service'
 import Swal from 'sweetalert2';
 import * as SerieA from '../../json/serieA.json';
 
+class filtro{
+  nome: string = '';
+  team: string = '';
+  role: string = '';
+}
+
 @Component({
   selector: 'app-estrazione',
   templateUrl: './estrazione.component.html',
@@ -13,16 +19,21 @@ export class EstrazioneComponent implements OnInit {
   dataTeams!: any;
   players: any = [];
   playerArr: any;
+  filtro: filtro = new filtro();
   daGenerare: boolean = false;
   selectedPlayer: any;
   squadSub: any;
   squadSelected: any;
   creditiSpesi = 0;
+  arrfilter: any[] = [];
   roleArr = ['Goalkeeper', 'Defender', 'Midfielder', 'Attacker'];
-  roleSelected = 'Goalkeeper';
+  roleSelected = '';
   estrMancanti = 0;
+  isFiltered = false;
 
-  constructor(public firebaseService: FirebaseService) { }
+  constructor(public firebaseService: FirebaseService) { 
+
+  }
 
   ngOnInit(): void {
     this.firebaseService.GetSquad().subscribe((x: any) => {
@@ -121,16 +132,25 @@ export class EstrazioneComponent implements OnInit {
     localStorage.setItem('players', JSON.stringify(this.playerArr));
   }
 
-  SelectFiltered(nome: string, team: string, role: string){
+  SelectFiltered(){
     this.playerArr = JSON.parse(localStorage.getItem('players')!).sort(() => 0.5 - Math.random());
     let tempArr =[...this.playerArr];
-    if(nome != ''){
-      tempArr = tempArr.find((x: any)=> x.name.toLowerCase().include(nome.toLowerCase()));
-    }else if( team != '' && team != null){
-      tempArr = tempArr.find((x: any)=> x.team == team);
-    }else if( role != '' && role != null){
-      tempArr = tempArr.find((x: any)=> x.position == role);
+
+    if(this.filtro.nome != ''){
+      this.arrfilter.push(tempArr.filter((x: any)=> x.name.toLowerCase().include(this.filtro.nome.toLowerCase())));
+    }else if( this.filtro.team != '' && this.filtro.team != null){
+      this.arrfilter.push(tempArr.filter((x: any)=> x.teamtoLowerCase().include(this.filtro.team.toLowerCase())));
+    }else if( this.filtro.role != '' && this.filtro.role != null){
+      this.arrfilter.push(tempArr.filter((x: any)=> x.position == this.filtro.role));
     }
+    
+  }
+
+  SwitchSearch(mode: string){
+    if(mode == 'filtered')
+    this.isFiltered = true;
+    else
+    this.isFiltered = false;
   }
 
   GenerateData() {

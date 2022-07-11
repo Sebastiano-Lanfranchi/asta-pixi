@@ -96,8 +96,6 @@ firebase/app
 
 firebase/app-check
 
-firebase/auth
-
 firebase/compat/app
 
 firebase/compat/auth
@@ -105,8 +103,6 @@ firebase/compat/auth
 firebase/compat/database
 
 firebase/compat/firestore
-
-firebase/firestore
 
 firebase/messaging
 

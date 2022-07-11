@@ -69,17 +69,17 @@
         <div class="flex justify-around">
             <div>
                 <label>nome:</label>
-                <input type="text" class="text-cyan-50 bg-slate-900 m-2 w-64" [(ngModel)]="filtro.nome"
+                <input type="text" class="text-cyan-50 bg-slate-900 m-2 w-64" [(ngModel)]="filtroNome"
                     placeholder="Nome">
             </div>
             <div>
                 <label>team:</label>
-                <input type="text" class="text-cyan-50 bg-slate-900 m-2 w-64" [(ngModel)]="filtro.team"
+                <input type="text" class="text-cyan-50 bg-slate-900 m-2 w-64" [(ngModel)]="filtroTeam"
                     placeholder="Squadra">
             </div>
             <div>
                 <label>role:</label>
-                <select [(ngModel)]="filtro.role" class="text-cyan-50 bg-slate-900 m-2 w-64">
+                <select [(ngModel)]="filtroRole" class="text-cyan-50 bg-slate-900 m-2 w-64">
                     <option *ngFor="let position of roleArr" [value]="position">{{position}}</option>
                 </select>
             </div>
@@ -88,17 +88,18 @@
                     (click)="SelectFiltered()">Ricerca</button>
             </div>
         </div>
-        <div class="flex justify-around">
-            <div class="flex justify-center" *ngFor="let find of arrfilter">
+        <div class="flex justify-around w-3/4 flex-wrap" *ngIf="ready">
+            <div class="flex justify-center" *ngFor="let find of arrfilter[0]">
                 <div class="rounded-lg shadow-lg bg-slate-500 max-w-sm">
                     <a href="#!">
                         <img class="rounded-t-lg" [src]="find.photo" alt="" />
                     </a>
                     <div class="p-6">
                         <h5 class="text-gray-900 text-xl font-medium mb-2">{{find.name}}</h5>
-                        <p class="text-white text-base mb-4">
-
-                        </p>
+                       <div>
+                        <div>{{find.team}}</div>
+                        <div>{{find.position}}</div>
+                       </div>
                         <button type="button"
                             class=" inline-block px-6 py-2.5 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out">Associa</button>
                     </div>

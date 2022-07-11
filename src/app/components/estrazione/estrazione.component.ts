@@ -3,11 +3,6 @@ import { FirebaseService } from '../../services/firebase-service.service'
 import Swal from 'sweetalert2';
 import * as SerieA from '../../json/serieA.json';
 
-class filtro{
-  nome: string = '';
-  team: string = '';
-  role: string = '';
-}
 
 @Component({
   selector: 'app-estrazione',
@@ -19,19 +14,22 @@ export class EstrazioneComponent implements OnInit {
   dataTeams!: any;
   players: any = [];
   playerArr: any;
-  filtro: filtro = new filtro();
+  filtroNome: any = '';
+  filtroTeam: any = '';
+  filtroRole: any = '';
+  ready: boolean = false;
+  arrfilter: any;
   daGenerare: boolean = false;
   selectedPlayer: any;
   squadSub: any;
   squadSelected: any;
   creditiSpesi = 0;
-  arrfilter: any[] = [];
   roleArr = ['Goalkeeper', 'Defender', 'Midfielder', 'Attacker'];
   roleSelected = '';
   estrMancanti = 0;
   isFiltered = false;
 
-  constructor(public firebaseService: FirebaseService) { 
+  constructor(public firebaseService: FirebaseService) {
 
   }
 
@@ -65,9 +63,9 @@ export class EstrazioneComponent implements OnInit {
         tempSquad = this.squadSub.find((x: any) => x.nome == this.squadSelected);
         if (tempSquad.crediti - this.creditiSpesi < 0) {
           Swal.fire('Crediti non sufficienti')
-        } else if(this.selectedPlayer.preso === true) {
+        } else if (this.selectedPlayer.preso === true) {
           Swal.fire('Giocatore già acquistato')
-        }else{
+        } else {
           var BreakException = {};
           this.playerArr.forEach((player: any) => {
             try {
@@ -87,12 +85,12 @@ export class EstrazioneComponent implements OnInit {
           tempSquad.crediti = tempSquad.crediti - this.creditiSpesi;
           tempSquad.players.push(this.selectedPlayer!);
           this.firebaseService.UpdateSquad(tempSquad)
-         
+
           Swal.fire(
             'Associato!',
             this.squadSelected + ' ha acquistato ' + this.selectedPlayer.name + ' per ' + this.creditiSpesi + ' crediti!',
             'success'
-          ) 
+          )
           this.creditiSpesi = 0;
         }
       }
@@ -132,25 +130,34 @@ export class EstrazioneComponent implements OnInit {
     localStorage.setItem('players', JSON.stringify(this.playerArr));
   }
 
-  SelectFiltered(){
+  SelectFiltered() {
     this.playerArr = JSON.parse(localStorage.getItem('players')!).sort(() => 0.5 - Math.random());
-    let tempArr =[...this.playerArr];
-
-    if(this.filtro.nome != ''){
-      this.arrfilter.push(tempArr.filter((x: any)=> x.name.toLowerCase().include(this.filtro.nome.toLowerCase())));
-    }else if( this.filtro.team != '' && this.filtro.team != null){
-      this.arrfilter.push(tempArr.filter((x: any)=> x.teamtoLowerCase().include(this.filtro.team.toLowerCase())));
-    }else if( this.filtro.role != '' && this.filtro.role != null){
-      this.arrfilter.push(tempArr.filter((x: any)=> x.position == this.filtro.role));
+    let tempArr = [...this.playerArr];
+    this.arrfilter = [];
+    if (this.filtroNome != '' && this.filtroTeam != '' && this.filtroRole != '') {
+      this.arrfilter.push(tempArr.filter((x: any) => x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && x.team.toLowerCase().includes(this.filtroTeam.toLowerCase()) && x.position == this.filtroRole));
+    } else if(this.filtroNome == '' && this.filtroTeam != '' && this.filtroRole == ''){
+      this.arrfilter.push(tempArr.filter((x: any) => x.team.toLowerCase().includes(this.filtroTeam.toLowerCase())));
+    } else if(this.filtroNome != '' && this.filtroTeam == '' && this.filtroRole != ''){
+      this.arrfilter.push(tempArr.filter((x: any) => x.name.toLowerCase().includes(this.filtroNome.toLowerCase())));
+    } else if(this.filtroNome != '' && this.filtroTeam != '' && this.filtroRole == ''){
+      this.arrfilter.push(tempArr.filter((x: any) => x.position == this.filtroRole));
+    } else if(this.filtroNome != '' && this.filtroTeam != '' && this.filtroRole == ''){
+      this.arrfilter.push(tempArr.filter((x: any) =>x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && x.team.toLowerCase().includes(this.filtroTeam.toLowerCase())));
+    }else if(this.filtroNome == '' && this.filtroTeam != '' && this.filtroRole != ''){
+      this.arrfilter.push(tempArr.filter((x: any) =>x.team.toLowerCase().includes(this.filtroTeam.toLowerCase()) && x.position == this.filtroRole));
+    }else if(this.filtroNome != '' && this.filtroTeam == '' && this.filtroRole != ''){
+      this.arrfilter.push(tempArr.filter((x: any) =>x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && x.position == this.filtroRole));
     }
-    
+    this.ready = true;
+    console.log(this.arrfilter)
   }
 
-  SwitchSearch(mode: string){
-    if(mode == 'filtered')
-    this.isFiltered = true;
+  SwitchSearch(mode: string) {
+    if (mode == 'filtered')
+      this.isFiltered = true;
     else
-    this.isFiltered = false;
+      this.isFiltered = false;
   }
 
   GenerateData() {

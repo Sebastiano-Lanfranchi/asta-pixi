@@ -28,6 +28,7 @@ export class EstrazioneComponent implements OnInit {
   roleSelected = '';
   estrMancanti = 0;
   isFiltered = false;
+  squadNameSelect: any;
 
   constructor(public firebaseService: FirebaseService) {
 
@@ -36,6 +37,8 @@ export class EstrazioneComponent implements OnInit {
   ngOnInit(): void {
     this.firebaseService.GetSquad().subscribe((x: any) => {
       this.squadSub = x;
+      this.squadNameSelect = this.squadSub.map((x:any)=> x.nome);
+      console.log(this.squadNameSelect)
       this.squadSelected = x[0].nome;
     })
     if (localStorage.getItem('players') === null || localStorage.getItem('players') === undefined) {
@@ -151,6 +154,25 @@ export class EstrazioneComponent implements OnInit {
     }
     this.ready = true;
     console.log(this.arrfilter)
+  }
+
+  AssociaRicerca(find: any){
+    Swal.fire({
+      title: 'Multiple inputs',
+      input: 'select',
+      inputOptions: this.squadNameSelect,
+      inputPlaceholder: 'Seleziona una squadra',
+      showCancelButton: true,
+      html:
+         '<label>crediti</label>' +
+        '<input type="number" id="swal-input2" class="swal2-input">',
+      focusConfirm: false,
+      preConfirm: () => {
+        return [
+          (document.getElementById('swal-input2') as HTMLInputElement).value
+        ]
+      }
+    })
   }
 
   SwitchSearch(mode: string) {

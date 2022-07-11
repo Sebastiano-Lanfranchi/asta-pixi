@@ -1,6 +1,6 @@
-<div class="container d-flex" style="width: 95%;">
+<div class="flex" style="width: 95%; margin: 0 auto">
     <div class="preview-container" style="color: aliceblue; width: 25%;" *ngIf="squad != undefined">
-        <table class="table table-dark">
+        <table class="table-auto">
             <thead class="text-center">
                 <tr>
                     <th scope="col">Nome</th>
@@ -11,30 +11,35 @@
             </thead>
             <tbody>
                 <tr *ngFor="let squadArr of arrSquadre" class="text-center">
-                    <th scope="row">{{squadArr.nome}}</th>
-                    <td>{{squadArr.crediti}}</td>
-                    <td><img style="width: 20px; height:20px" [src]="squadArr.logo"></td>
-                    <td><i class="fa-solid fa-trash text-danger cPointer"
+                    <th scope="row" class="border-y">{{squadArr.nome}}</th>
+                    <td class="border-y">{{squadArr.crediti}}</td>
+                    <td class="border-y"><img style="width: 20px; height:20px" [src]="squadArr.logo"></td>
+                    <td class="border-y"><i class="fa-solid fa-trash text-red-500 cPointer"
                             (click)="firebaseService.DeleteSquad(squadArr)"></i></td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div style="width: 50%; text-align: center">
-        <label for="exampleFormControlInput1" class="form-label text-light">Nome Squadra</label>
-        <input type="text" class="form-control bg-dark" style="width:400px; color:aliceblue; margin: 0 auto;"
+    <div class="text-center " style="width: 50%;">
+        <label for="exampleFormControlInput1" class="text-white">Nome Squadra</label>
+        <br>
+        <input type="text" class="text-cyan-50 bg-slate-900 m-2 p-2" style="width:400px; color:aliceblue; margin: 0 auto;"
             id="exampleFormControlInput1" placeholder="FCDONETSK" [(ngModel)]="squad.nome">
         <br />
-        <label for="exampleFormControlInput1" class="form-label text-light">Crediti</label>
-        <input type="number" class="form-control bg-dark" style="width:400px; color:aliceblue; margin: 0 auto;"
+        <label for="exampleFormControlInput1" class="text-white">Crediti</label>
+        <br>
+        <input type="number" class="text-cyan-50 bg-slate-900 m-2 p-2" style="width:400px; color:aliceblue; margin: 0 auto;"
             id="exampleFormControlInput1" placeholder="€cazzi$" step="1" min="0" [(ngModel)]="squad.crediti">
         <br />
-        <label for="exampleFormControlInput1" class="form-label text-light">Logo</label>
-        <input type="text" class="form-control bg-dark" style="width:400px; color:aliceblue; margin: 0 auto;"
+        <label for="exampleFormControlInput1" class="text-white">Logo</label>
+        <br>
+        <input type="text" class="text-cyan-50 bg-slate-900 m-2 p-2" style="width:400px; color:aliceblue; margin: 0 auto;"
             id="exampleFormControlInput1" placeholder="https://unacasettaincanada.com/" [(ngModel)]="squad.logo">
         <br />
-        <div><button type="button" class="btn btn-success"
-                (click)="firebaseService.CreateSquad(squad)">Aggiungi</button></div>
+        <div>
+            <button type="button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2"
+                (click)="firebaseService.CreateSquad(squad)">Aggiungi</button>
+            </div>
     </div>
     <div class="preview-container" style="color: aliceblue; width: 25%;" *ngIf="squad != undefined">
         <div *ngIf="squad.nome != ''">

@@ -76,12 +76,13 @@ export class EstrazioneComponent implements OnInit {
           tempSquad.crediti = tempSquad.crediti - this.creditiSpesi;
           tempSquad.players.push(this.selectedPlayer!);
           this.firebaseService.UpdateSquad(tempSquad)
-          this.creditiSpesi = 0;
+         
           Swal.fire(
             'Associato!',
             this.squadSelected + ' ha acquistato ' + this.selectedPlayer.name + ' per ' + this.creditiSpesi + ' crediti!',
             'success'
-          )
+          ) 
+          this.creditiSpesi = 0;
         }
       }
     })

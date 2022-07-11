@@ -4,7 +4,7 @@
     <app-estrazione *ngIf="switchPage.isEstraz"></app-estrazione>
 </div>
 <ng-template #showLogin>
-    <div class="d-flex" style="flex-direction: column; justify-content: space-around; align-items: center">
+    <div class="flex flex-col justify-around items-center">
         <div style="width: 200px">
             <label for="email" style="color:aliceblue">Email</label>
             <input type="email" id="email" [(ngModel)]="email">
@@ -18,6 +18,4 @@
                 (click)="login()">Sign in</button>
         </div>
     </div>
-
-
 </ng-template>

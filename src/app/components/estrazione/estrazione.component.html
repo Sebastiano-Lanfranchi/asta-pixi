@@ -1,23 +1,16 @@
 <div class="flex justify-around w-1/3" style="margin: 0 auto">
     <button (click)="SwitchSearch('')" type="button"
-        class="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded mt-2">Estrazione
+        class="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Estrazione
         Randomica</button>
     <button (click)="SwitchSearch('filtered')" type="button"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">Ricerca</button>
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Ricerca</button>
 </div>
 <div *ngIf="daGenerare" style="color:aliceblue; text-align:center">
     <h1>Devi generare una sessione nuova di estrazione</h1>
 </div>
-<div style="text-align: start; margin-left: 30px">
-    <button *ngIf="daGenerare" (click)="GenerateData()" type="button"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2">Genera estrazione</button>
-    <button *ngIf="daGenerare == false" (click)="Elimina()" type="button"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2">Elimina
-        estrazione</button>
-</div>
 <div class="container" style="margin: 0 auto" *ngIf="!daGenerare">
     <!-- NON FILTRATA -->
-    <div *ngIf="!isFiltered">
+    <div *ngIf="!isFiltered" class="">
         <div style="text-align: center; margin-bottom: 20px">
             <select [(ngModel)]="roleSelected" class="text-cyan-50 bg-slate-900 m-2 p-2">
                 <option *ngFor="let position of roleArr" [value]="position">{{position}}</option>
@@ -59,9 +52,15 @@
                     (click)="Associa()">Associa</button>
             </div>
         </div>
-        <div style="text-align: end;">
-            <button type="button" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded mt-2"
+        <div class="flex justify-around w-3/4 mb-10 mx-auto">
+            <button *ngIf="daGenerare" (click)="GenerateData()" type="button"
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Genera estrazione</button>
+            <button *ngIf="daGenerare == false" (click)="Elimina()" type="button"
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Elimina
+                estrazione</button>
+            <button type="button" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded mt-2 w-40"
                 (click)="SelectRandom()">Estrai nuovo</button>
+        
         </div>
     </div>
     <!-- FILTRATA -->
@@ -88,27 +87,28 @@
                     (click)="SelectFiltered()">Ricerca</button>
             </div>
         </div>
-        <div class="flex justify-around w-3/4 flex-wrap"  style="margin: 0 auto" *ngIf="ready">
+        <div class="flex justify-around w-3/4 flex-wrap" style="margin: 0 auto" *ngIf="ready">
             <ng-container *ngFor="let find of arrfilter[0]">
-                <div class="flex justify-center mx-8" *ngIf="find.preso != true">
-                <div class="rounded-lg shadow-lg bg-slate-500 w-52 text-center">
-                    <a href="#!">
-                        <img class="rounded-t-lg m-1" style="margin: 0 auto" [src]="find.photo" alt="" />
-                    </a>
-                    <div class="p-6">
-                        <h5 class="text-gray-900 text-xl font-medium mb-2">{{find.name}}</h5>
-                       <div>
-                        <div>{{find.team}}</div>
-                        <div>{{find.position}}</div>
-                        <div style="margin: 0 auto"><img [src]="find.logoT" style="margin: 0 auto" class="w-10"></div>
-                       </div>
-                        <button type="button" (click)="AssociaRicerca(find)"
-                            class=" inline-block px-6 py-2.5 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out">Associa</button>
+                <div class="flex justify-center mx-8 mb-5 border-white" *ngIf="find.preso != true">
+                    <div class="rounded-lg shadow-lg bg-slate-900 w-52 text-center">
+                        <a href="#!">
+                            <img class="rounded-t-lg m-1" style="margin: 0 auto" [src]="find.photo" alt="" />
+                        </a>
+                        <div class="p-6">
+                            <h5 class="text-xl font-medium mb-2 text-white">{{find.name}}</h5>
+                            <div class="text-white">
+                                <div>{{find.team}}</div>
+                                <div>{{find.position}}</div>
+                                <div style="margin: 0 auto"><img [src]="find.logoT" style="margin: 0 auto" class="w-10">
+                                </div>
+                            </div>
+                            <button type="button" (click)="AssociaRicerca(find)"
+                                class=" inline-block px-6 py-2.5 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out">Associa</button>
+                        </div>
                     </div>
                 </div>
-            </div>  
             </ng-container>
-          
+
         </div>
 
     </div>

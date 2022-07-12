@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header-components/header.component';
 import { SquadreGenComponent } from './components/squadre-gen/squadre-gen.component';
 import { EstrazioneComponent } from './components/estrazione/estrazione.component';
+import { FocusSquadComponent } from './components/focus-squad/focus-squad.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { EstrazioneComponent } from './components/estrazione/estrazione.componen
     AppComponent,
     HeaderComponent,
     SquadreGenComponent,
-    EstrazioneComponent
+    EstrazioneComponent,
+    FocusSquadComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase-service.service'
 import Swal from 'sweetalert2';
+import axios from 'Axios';
 import * as SerieA from '../../json/serieA.json';
+//reference path="path/to/node.d.ts" />
+
 
 @Component({
   selector: 'app-estrazione',
@@ -38,7 +41,7 @@ export class EstrazioneComponent implements OnInit {
   ngOnInit(): void {
     this.firebaseService.GetSquad().subscribe((x: any) => {
       this.squadSub = x;
-      this.squadNameSelect = this.squadSub.map((x:any)=> x.nome);
+      this.squadNameSelect = this.squadSub.map((x: any) => x.nome);
       console.log(this.squadNameSelect)
       this.squadSelected = x[0].nome;
     })
@@ -100,6 +103,34 @@ export class EstrazioneComponent implements OnInit {
     })
   }
 
+  
+  UpdateSquadPlayer() {
+    let tmp = SerieA;
+    tmp.teams.forEach((team) => {
+      const options = {
+        method: 'GET',
+        url: 'https://api-football-v1.p.rapidapi.com/v3/players/squads',
+        params: { team: team.team.id },
+        headers: {
+          'X-RapidAPI-Key': '2dc7824b3cmsh3c8fdbe72d2cae1p183851jsn860ba2af6845',
+          'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
+        }
+      };
+      axios.request(options).then(function (response) {
+        team.team.players = response.data;
+      }).catch(function (error) {
+        console.error(error);
+      });
+    })
+    JSON.stringify(tmp)
+    Swal.fire(
+      'Ottimo!',
+      'Ultimi aggiornamenti di mercato salvati!',
+      'success'
+    )
+  }
+
+
   SelectRandom() {
     var BreakException = {}
     this.playerArr = JSON.parse(localStorage.getItem('players')!).sort(() => 0.5 - Math.random());
@@ -139,24 +170,24 @@ export class EstrazioneComponent implements OnInit {
     this.arrfilter = [];
     if (this.filtroNome != '' && this.filtroTeam != '' && this.filtroRole != '') {
       this.arrfilter.push(tempArr.filter((x: any) => x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && x.team.toLowerCase().includes(this.filtroTeam.toLowerCase()) && x.position == this.filtroRole));
-    } else if(this.filtroNome == '' && this.filtroTeam != '' && this.filtroRole == ''){
+    } else if (this.filtroNome == '' && this.filtroTeam != '' && this.filtroRole == '') {
       this.arrfilter.push(tempArr.filter((x: any) => x.team.toLowerCase().includes(this.filtroTeam.toLowerCase())));
-    } else if(this.filtroNome != '' && this.filtroTeam == '' && this.filtroRole == ''){
+    } else if (this.filtroNome != '' && this.filtroTeam == '' && this.filtroRole == '') {
       this.arrfilter.push(tempArr.filter((x: any) => x.name.toLowerCase().includes(this.filtroNome.toLowerCase())));
-    } else if(this.filtroNome != '' && this.filtroTeam != '' && this.filtroRole == ''){
+    } else if (this.filtroNome != '' && this.filtroTeam != '' && this.filtroRole == '') {
       this.arrfilter.push(tempArr.filter((x: any) => x.position == this.filtroRole));
-    } else if(this.filtroNome != '' && this.filtroTeam != '' && this.filtroRole == ''){
-      this.arrfilter.push(tempArr.filter((x: any) =>x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && x.team.toLowerCase().includes(this.filtroTeam.toLowerCase())));
-    }else if(this.filtroNome == '' && this.filtroTeam != '' && this.filtroRole != ''){
-      this.arrfilter.push(tempArr.filter((x: any) =>x.team.toLowerCase().includes(this.filtroTeam.toLowerCase()) && x.position == this.filtroRole));
-    }else if(this.filtroNome != '' && this.filtroTeam == '' && this.filtroRole != ''){
-      this.arrfilter.push(tempArr.filter((x: any) =>x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && x.position == this.filtroRole));
+    } else if (this.filtroNome != '' && this.filtroTeam != '' && this.filtroRole == '') {
+      this.arrfilter.push(tempArr.filter((x: any) => x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && x.team.toLowerCase().includes(this.filtroTeam.toLowerCase())));
+    } else if (this.filtroNome == '' && this.filtroTeam != '' && this.filtroRole != '') {
+      this.arrfilter.push(tempArr.filter((x: any) => x.team.toLowerCase().includes(this.filtroTeam.toLowerCase()) && x.position == this.filtroRole));
+    } else if (this.filtroNome != '' && this.filtroTeam == '' && this.filtroRole != '') {
+      this.arrfilter.push(tempArr.filter((x: any) => x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && x.position == this.filtroRole));
     }
     this.ready = true;
     console.log(this.arrfilter)
   }
 
-  AssociaRicerca(find: any){
+  AssociaRicerca(find: any) {
     var BreakException = {}
     Swal.fire({
       title: 'Multiple inputs',

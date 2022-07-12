@@ -25,7 +25,7 @@ export class EstrazioneComponent implements OnInit {
   squadSelected: any;
   creditiSpesi = 0;
   roleArr = ['Goalkeeper', 'Defender', 'Midfielder', 'Attacker'];
-  roleSelected = '';
+  roleSelected = 'Goalkeeper';
   estrMancanti = 0;
   isFiltered = false;
   squadNameSelect: any;
@@ -188,7 +188,6 @@ export class EstrazioneComponent implements OnInit {
               player.estratto = true;
               if (find.preso === true) throw BreakException;
               console.log(player);
-              
             }
           }
           catch (e) {

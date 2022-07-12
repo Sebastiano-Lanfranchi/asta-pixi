@@ -3,7 +3,6 @@ import { FirebaseService } from '../../services/firebase-service.service'
 import Swal from 'sweetalert2';
 import * as SerieA from '../../json/serieA.json';
 
-
 @Component({
   selector: 'app-estrazione',
   templateUrl: './estrazione.component.html',
@@ -11,6 +10,7 @@ import * as SerieA from '../../json/serieA.json';
 })
 
 export class EstrazioneComponent implements OnInit {
+
   dataTeams!: any;
   players: any = [];
   playerArr: any;
@@ -29,6 +29,7 @@ export class EstrazioneComponent implements OnInit {
   estrMancanti = 0;
   isFiltered = false;
   squadNameSelect: any;
+  tmp: any;
 
   constructor(public firebaseService: FirebaseService) {
 
@@ -88,7 +89,6 @@ export class EstrazioneComponent implements OnInit {
           tempSquad.crediti = tempSquad.crediti - this.creditiSpesi;
           tempSquad.players.push(this.selectedPlayer!);
           this.firebaseService.UpdateSquad(tempSquad)
-
           Swal.fire(
             'Associato!',
             this.squadSelected + ' ha acquistato ' + this.selectedPlayer.name + ' per ' + this.creditiSpesi + ' crediti!',
@@ -157,6 +157,7 @@ export class EstrazioneComponent implements OnInit {
   }
 
   AssociaRicerca(find: any){
+    var BreakException = {}
     Swal.fire({
       title: 'Multiple inputs',
       input: 'select',
@@ -164,13 +165,42 @@ export class EstrazioneComponent implements OnInit {
       inputPlaceholder: 'Seleziona una squadra',
       showCancelButton: true,
       html:
-         '<label>crediti</label>' +
+        '<label>crediti</label>' +
         '<input type="number" id="swal-input2" class="swal2-input">',
       focusConfirm: false,
-      preConfirm: () => {
+      preConfirm: (value) => {
         return [
+          this.tmp = value,
           (document.getElementById('swal-input2') as HTMLInputElement).value
         ]
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.squadSub[this.tmp].players.push(find);
+        this.squadSub[this.tmp].crediti = this.squadSub[this.tmp].crediti - Number((document.getElementById('swal-input2') as HTMLInputElement).value);
+        this.firebaseService.UpdateSquad(this.squadSub[this.tmp]);
+        this.playerArr.forEach((player: any) => {
+          try {
+            if (player.name == find.name && player.team == find.team) {
+              find.estratto = true;
+              find.preso = true;
+              player.preso = true;
+              player.estratto = true;
+              if (find.preso === true) throw BreakException;
+              console.log(player);
+              
+            }
+          }
+          catch (e) {
+            localStorage.setItem('players', JSON.stringify(this.playerArr));
+            if (e !== BreakException) throw e;
+          }
+        });
+        Swal.fire(
+          'Associato!',
+          'Associazione avvenuta con successo.',
+          'success'
+        )
       }
     })
   }

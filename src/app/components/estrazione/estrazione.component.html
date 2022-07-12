@@ -52,18 +52,17 @@
                     (click)="Associa()">Associa</button>
             </div>
         </div>
-        <div class="flex justify-around w-3/4 mb-10 mx-auto">
-            <button (click)="UpdateSquadPlayer()" type="button"
-            class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Aggiorna squadra</button>
-            <button *ngIf="daGenerare" (click)="GenerateData()" type="button"
-                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Genera estrazione</button>
-            <button *ngIf="daGenerare == false" (click)="Elimina()" type="button"
-                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Elimina
-                estrazione</button>
-            <button type="button" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded mt-2 w-40"
-                (click)="SelectRandom()">Estrai nuovo</button>
-        
-        </div>
+
+    </div>
+    <div class="flex justify-around w-3/4 mb-10 mx-auto">
+        <button *ngIf="daGenerare" (click)="GenerateData()" type="button"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Genera
+            estrazione</button>
+        <button *ngIf="daGenerare == false" (click)="Elimina()" type="button"
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Elimina
+            estrazione</button>
+        <button type="button" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded mt-2 w-40"
+            (click)="SelectRandom()">Estrai nuovo</button>
     </div>
     <!-- FILTRATA -->
     <div *ngIf="isFiltered" class="mt-2">
@@ -115,3 +114,4 @@
 
     </div>
 </div>
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

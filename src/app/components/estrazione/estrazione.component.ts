@@ -3,8 +3,8 @@ import { FirebaseService } from '../../services/firebase-service.service'
 import Swal from 'sweetalert2';
 import axios from 'Axios';
 import * as SerieA from '../../json/serieA.json';
-//reference path="path/to/node.d.ts" />
-
+import { NgxSpinnerService } from "ngx-spinner";
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-estrazione',
@@ -32,9 +32,10 @@ export class EstrazioneComponent implements OnInit {
   estrMancanti = 0;
   isFiltered = false;
   squadNameSelect: any;
+  updateSerieA: any;
   tmp: any;
 
-  constructor(public firebaseService: FirebaseService) {
+  constructor(public firebaseService: FirebaseService, private spinner: NgxSpinnerService) {
 
   }
 
@@ -45,11 +46,12 @@ export class EstrazioneComponent implements OnInit {
       console.log(this.squadNameSelect)
       this.squadSelected = x[0].nome;
     })
-    if (localStorage.getItem('players') === null || localStorage.getItem('players') === undefined) {
+    if (JSON.parse(localStorage.getItem('players')!) !== null || JSON.parse(localStorage.getItem('players')!) === undefined) {
       this.daGenerare = true;
     } else {
       this.playerArr = JSON.parse(localStorage.getItem('players')!);
       this.selectedPlayer = JSON.parse(localStorage.getItem('selectedPlayer')!)
+      this.UpdateSquadPlayer();
       this.daGenerare = false;
     }
   }
@@ -103,33 +105,46 @@ export class EstrazioneComponent implements OnInit {
     })
   }
 
-  
+
   UpdateSquadPlayer() {
     let tmp = SerieA;
-    tmp.teams.forEach((team) => {
-      const options = {
-        method: 'GET',
-        url: 'https://api-football-v1.p.rapidapi.com/v3/players/squads',
-        params: { team: team.team.id },
-        headers: {
-          'X-RapidAPI-Key': '2dc7824b3cmsh3c8fdbe72d2cae1p183851jsn860ba2af6845',
-          'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
-        }
-      };
-      axios.request(options).then(function (response) {
-        team.team.players = response.data;
-      }).catch(function (error) {
-        console.error(error);
+    if (!JSON.parse(localStorage.getItem('SerieAOk')!)) {
+      var isReady = new Promise((resolve, reject) => {
+        this.spinner.show()
+        tmp.teams.forEach((team, index) => {
+          setTimeout(() => {
+            const options = {
+              method: 'GET',
+              url: 'https://v3.football.api-sports.io/players/squads',
+              params: { team: team.team.id },
+              headers: {
+                "x-rapidapi-host": "v3.football.api-sports.io",
+                "x-rapidapi-key": "11d9e2510d0bf0efdc2fcc80b67358da"
+              }
+            };
+            axios.request(options).then(function (response) {
+              team.team.players = response.data;
+            }).catch(function (error) {
+              console.error(error);
+            });
+          }, 100 * (index + 1));
+          if (index == 19)
+            resolve(true)
+        });
       });
-    })
-    JSON.stringify(tmp)
-    Swal.fire(
-      'Ottimo!',
-      'Ultimi aggiornamenti di mercato salvati!',
-      'success'
-    )
-  }
+      isReady.then(() => {
+        this.updateSerieA = tmp;
+        localStorage.setItem('SerieAOk', JSON.stringify(this.updateSerieA));
+        this.spinner.hide()
+        Swal.fire(
+          'Ottimo!',
+          'Ultimi aggiornamenti di mercato salvati!',
+          'success'
+        )
+      })
+    }
 
+  }
 
   SelectRandom() {
     var BreakException = {}
@@ -243,7 +258,7 @@ export class EstrazioneComponent implements OnInit {
   }
 
   GenerateData() {
-    this.dataTeams = SerieA;
+    this.dataTeams = JSON.parse(localStorage.getItem('SerieAOk')!);
     this.dataTeams.teams.forEach((x: any) => {
       x.team.players.forEach((y: any) => {
         y['team'] = x.team.name;

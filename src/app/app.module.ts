@@ -9,6 +9,7 @@ import { HeaderComponent } from './components/header-components/header.component
 import { SquadreGenComponent } from './components/squadre-gen/squadre-gen.component';
 import { EstrazioneComponent } from './components/estrazione/estrazione.component';
 import { FocusSquadComponent } from './components/focus-squad/focus-squad.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { FocusSquadComponent } from './components/focus-squad/focus-squad.compon
     AngularFireDatabaseModule,
     BrowserModule,
     FormsModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
   ],
   providers: [],
   bootstrap: [AppComponent]

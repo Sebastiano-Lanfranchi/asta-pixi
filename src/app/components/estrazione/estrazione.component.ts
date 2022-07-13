@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import axios from 'Axios';
 import * as SerieA from '../../json/serieA.json';
 import { NgxSpinnerService } from "ngx-spinner";
-import { timer } from 'rxjs';
+import { BehaviorSubject, Observable, timer } from 'rxjs';
 
 @Component({
   selector: 'app-estrazione',
@@ -20,6 +20,7 @@ export class EstrazioneComponent implements OnInit {
   filtroNome: any = '';
   filtroTeam: any = '';
   filtroRole: any = '';
+  isLoader: boolean = false;
   ready: boolean = false;
   arrfilter: any;
   daGenerare: boolean = false;
@@ -46,14 +47,7 @@ export class EstrazioneComponent implements OnInit {
       console.log(this.squadNameSelect)
       this.squadSelected = x[0].nome;
     })
-    if (JSON.parse(localStorage.getItem('players')!) !== null || JSON.parse(localStorage.getItem('players')!) === undefined) {
-      this.daGenerare = true;
-    } else {
-      this.playerArr = JSON.parse(localStorage.getItem('players')!);
-      this.selectedPlayer = JSON.parse(localStorage.getItem('selectedPlayer')!)
-      this.UpdateSquadPlayer();
-      this.daGenerare = false;
-    }
+   this.CheckLocalStorage();
   }
 
   Associa() {
@@ -106,11 +100,12 @@ export class EstrazioneComponent implements OnInit {
   }
 
 
-  UpdateSquadPlayer() {
+  async UpdateSquadPlayer() {
+    this.isLoader = true;
+     if (!JSON.parse(localStorage.getItem('SerieAOk')!)) {
     let tmp = SerieA;
-    if (!JSON.parse(localStorage.getItem('SerieAOk')!)) {
       var isReady = new Promise((resolve, reject) => {
-        this.spinner.show()
+        this.isLoader = true;
         tmp.teams.forEach((team, index) => {
           setTimeout(() => {
             const options = {
@@ -123,27 +118,25 @@ export class EstrazioneComponent implements OnInit {
               }
             };
             axios.request(options).then(function (response) {
-              team.team.players = response.data;
+              team.team.players = response.data.reponse[0].players;
             }).catch(function (error) {
               console.error(error);
             });
-          }, 100 * (index + 1));
+          }, 400 * (index + 1));
           if (index == 19)
-            resolve(true)
-        });
-      });
-      isReady.then(() => {
-        this.updateSerieA = tmp;
+         this.updateSerieA = tmp;
         localStorage.setItem('SerieAOk', JSON.stringify(this.updateSerieA));
-        this.spinner.hide()
+        this.isLoader = false;
         Swal.fire(
           'Ottimo!',
           'Ultimi aggiornamenti di mercato salvati!',
           'success'
         )
-      })
+        resolve(true)
+        });
+      });
+      return isReady
     }
-
   }
 
   SelectRandom() {
@@ -257,6 +250,24 @@ export class EstrazioneComponent implements OnInit {
       this.isFiltered = false;
   }
 
+ async  CheckLocalStorage(){
+  this.isLoader = true;
+    if(JSON.parse(localStorage.getItem('SerieAOk')!) === null){
+      this.UpdateSquadPlayer().then((value)=>{
+        if(value === true)
+        this.GenerateData();
+      });
+    }else{
+      if(JSON.parse(localStorage.getItem('players')!) === null || JSON.parse(localStorage.getItem('players')!) === undefined){
+         this.GenerateData();
+      }else{
+        this.selectedPlayer = JSON.parse(localStorage.getItem('selectedPlayer')!)
+        this.isLoader = false;
+      }
+     
+    }
+  }
+
   GenerateData() {
     this.dataTeams = JSON.parse(localStorage.getItem('SerieAOk')!);
     this.dataTeams.teams.forEach((x: any) => {
@@ -269,14 +280,17 @@ export class EstrazioneComponent implements OnInit {
       })
     })
     this.daGenerare = false;
-    localStorage.clear();
+    localStorage.removeItem('selectedPlayer');
+    localStorage.removeItem('players');
     localStorage.setItem('players', JSON.stringify(this.players));
     this.SelectRandom();
     Swal.fire({
       icon: 'success',
       title: 'Estrazione generata',
       text: 'Eliminazione generata con successo!',
-    })
+    })    
+    this.daGenerare = false;
+    this.isLoader = false;
   }
 
   Elimina() {

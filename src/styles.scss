@@ -9,3 +9,32 @@ body{
 .cPointer{
     cursor: pointer
 }
+
+.spinner-img {
+    height: 20vh;
+    width: 20vh;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    animation: loading-spinner-img 3s linear infinite;
+  }
+  
+  
+  @keyframes loading-spinner-img {
+    0%, 100% {
+      animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+    }
+    0% {
+      transform: rotateY(0deg);
+    }
+    50% {
+      transform: rotateY(1800deg);
+      animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+    }
+    100% {
+      transform: rotateY(3600deg);
+    }
+  }

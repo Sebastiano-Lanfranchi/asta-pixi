@@ -8,9 +8,21 @@
 <div *ngIf="daGenerare" style="color:aliceblue; text-align:center">
     <h1>Devi generare una sessione nuova di estrazione</h1>
 </div>
+<div class="flex justify-around w-3/4 mb-10 mx-auto">
+    <button *ngIf="daGenerare" (click)="CheckLocalStorage()" type="button"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Genera
+        estrazione</button>
+    <button *ngIf="daGenerare == false" (click)="Elimina()" type="button"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Elimina
+        estrazione</button>
+    <button type="button" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded mt-2 w-40"
+        (click)="SelectRandom()">Estrai nuovo</button>
+</div>
 <div class="container" style="margin: 0 auto" *ngIf="!daGenerare">
+    
     <!-- NON FILTRATA -->
     <div *ngIf="!isFiltered" class="">
+   
         <div style="text-align: center; margin-bottom: 20px">
             <select [(ngModel)]="roleSelected" class="text-cyan-50 bg-slate-900 m-2 p-2">
                 <option *ngFor="let position of roleArr" [value]="position">{{position}}</option>
@@ -53,16 +65,6 @@
             </div>
         </div>
 
-    </div>
-    <div class="flex justify-around w-3/4 mb-10 mx-auto">
-        <button *ngIf="daGenerare" (click)="GenerateData()" type="button"
-            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Genera
-            estrazione</button>
-        <button *ngIf="daGenerare == false" (click)="Elimina()" type="button"
-            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Elimina
-            estrazione</button>
-        <button type="button" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded mt-2 w-40"
-            (click)="SelectRandom()">Estrai nuovo</button>
     </div>
     <!-- FILTRATA -->
     <div *ngIf="isFiltered" class="mt-2">
@@ -114,4 +116,7 @@
 
     </div>
 </div>
-<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div *ngIf="isLoader" class="spinner">
+    <img class="spinner-img" src="../../../assets/soccer_ball2.svg">
+    <p class=" text-white text-center"><b>Aggiornamento rosa squadre...</b></p>
+  </div>

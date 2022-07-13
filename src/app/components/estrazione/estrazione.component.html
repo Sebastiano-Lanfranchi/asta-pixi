@@ -92,7 +92,7 @@
         </div>
         <div class="flex justify-around w-3/4 flex-wrap" style="margin: 0 auto" *ngIf="ready">
             <ng-container *ngFor="let find of arrfilter[0]">
-                <div class="flex justify-center mx-8 mb-5 border-white" *ngIf="find.preso != true">
+                <div class="flex justify-center mx-8 mb-5 border border-white rounded-lg p-1" *ngIf="find.preso != true">
                     <div class="rounded-lg shadow-lg bg-slate-900 w-52 text-center">
                         <a href="#!">
                             <img class="rounded-t-lg m-1" style="margin: 0 auto" [src]="find.photo" alt="" />

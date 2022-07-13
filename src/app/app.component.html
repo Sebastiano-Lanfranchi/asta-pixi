@@ -2,6 +2,7 @@
 <div *ngIf="auth.user | async as user; else showLogin">
     <app-squadre-gen *ngIf="switchPage.isGenSquad"></app-squadre-gen>
     <app-estrazione *ngIf="switchPage.isEstraz"></app-estrazione>
+    <app-focus-squad *ngIf="switchPage.isPanSquad"></app-focus-squad>
 </div>
 <ng-template #showLogin>
     <div class="flex flex-col justify-around items-center">

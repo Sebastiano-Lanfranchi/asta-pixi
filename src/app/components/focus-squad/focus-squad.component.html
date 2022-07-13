@@ -1,1 +1,56 @@
-
+<ng-container *ngIf="squads">
+    <div *ngIf="squads.length == 0" class="text-white">NESSUNA SQUADRA AGGIUNTA</div>
+    <div class="w-full p-4 " *ngFor="let squad of squads" class="text-white border border-white rounded-lg">
+        <div class="flex justify-around items-center">
+            <div><img [src]="squad.logo" alt="" class="w-16"></div>
+            <div>
+                <h2><b>{{squad.nome}}</b></h2>
+            </div>
+            <div *ngIf="squad.players.length > 0">Rosa: {{squad.players.length}}</div>
+            <div *ngIf="squad.players.length == 0">Rosa: 0</div>
+            <div><i *ngIf="squad.open==false" class="fa-solid fa-eye" (click)="squad.open = true"></i><i *ngIf="squad.open==true" (click)="squad.open = false" class="fa-solid fa-eye-slash"></i></div>
+        </div>
+        <div *ngIf="squad.open == true">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="py-3 px-6">
+                            Immagine
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Nome
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Ruolo
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Squadra
+                        </th>
+                        <th scope="col" class="py-3 px-6">
+                            Logo
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let player of squad.players">
+                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <img [src]="player.photo" class="w-10">
+                        </th>
+                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{player.name}}
+                        </th>
+                        <td class="py-4 px-6 text-white">
+                            {{player.position}}
+                        </td>
+                        <td class="py-4 px-6 text-white">
+                            {{player.team}}
+                        </td>
+                        <td class="py-4 px-6 text-white">
+                            <img [src]="player.logoT" class="w-10">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ng-container>

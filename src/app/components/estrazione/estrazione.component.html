@@ -15,14 +15,15 @@
     <button *ngIf="daGenerare == false" (click)="Elimina()" type="button"
         class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Elimina
         estrazione</button>
+    <a class="bg-yellow-500 hover:bg-yellow-700 text-white text-center font-bold py-2 px-4 rounded mt-2 w-48" title="Download JSON" [href]="jsonDown" download="download.json">download json</a>
     <button type="button" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded mt-2 w-40"
         (click)="SelectRandom()">Estrai nuovo</button>
 </div>
 <div class="container" style="margin: 0 auto" *ngIf="!daGenerare">
-    
+
     <!-- NON FILTRATA -->
     <div *ngIf="!isFiltered" class="">
-   
+
         <div style="text-align: center; margin-bottom: 20px">
             <select [(ngModel)]="roleSelected" class="text-cyan-50 bg-slate-900 m-2 p-2">
                 <option *ngFor="let position of roleArr" [value]="position">{{position}}</option>
@@ -92,7 +93,8 @@
         </div>
         <div class="flex justify-around w-3/4 flex-wrap" style="margin: 0 auto" *ngIf="ready">
             <ng-container *ngFor="let find of arrfilter[0]">
-                <div class="flex justify-center mx-8 mb-5 border border-white rounded-lg p-1" *ngIf="find.preso != true">
+                <div class="flex justify-center mx-8 mb-5 border border-white rounded-lg p-1"
+                    *ngIf="find.preso != true">
                     <div class="rounded-lg shadow-lg bg-slate-900 w-52 text-center">
                         <a href="#!">
                             <img class="rounded-t-lg m-1" style="margin: 0 auto" [src]="find.photo" alt="" />
@@ -119,4 +121,4 @@
 <div *ngIf="isLoader" class="spinner">
     <img class="spinner-img" src="../../../assets/soccer_ball2.svg">
     <p class=" text-white text-center"><b>Aggiornamento rosa squadre...</b></p>
-  </div>
+</div>

@@ -5,6 +5,7 @@ import axios from 'Axios';
 import * as SerieA from '../../json/serieA.json';
 import { NgxSpinnerService } from "ngx-spinner";
 import { BehaviorSubject, Observable, timer } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-estrazione',
@@ -34,9 +35,10 @@ export class EstrazioneComponent implements OnInit {
   isFiltered = false;
   squadNameSelect: any;
   updateSerieA: any;
+  jsonDown: any;
   tmp: any;
 
-  constructor(public firebaseService: FirebaseService, private spinner: NgxSpinnerService) {
+  constructor(public firebaseService: FirebaseService, private spinner: NgxSpinnerService, private sanitizer: DomSanitizer) {
 
   }
 
@@ -138,6 +140,12 @@ export class EstrazioneComponent implements OnInit {
       return isReady
     }
   }
+
+  generateDownloadJsonUri() {
+    var theJSON = JSON.stringify(JSON.parse(localStorage.getItem('SerieAOk')!));
+    var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
+    this.jsonDown = uri;
+}
 
   SelectRandom() {
     var BreakException = {}
@@ -256,12 +264,17 @@ export class EstrazioneComponent implements OnInit {
       this.UpdateSquadPlayer().then((value)=>{
         if(value === true)
         this.GenerateData();
+        this.generateDownloadJsonUri();
       });
     }else{
       if(JSON.parse(localStorage.getItem('players')!) === null || JSON.parse(localStorage.getItem('players')!) === undefined){
          this.GenerateData();
+         this.GenerateData();
+        this.generateDownloadJsonUri();
       }else{
         this.selectedPlayer = JSON.parse(localStorage.getItem('selectedPlayer')!)
+        this.GenerateData();
+        this.generateDownloadJsonUri();
         this.isLoader = false;
       }
      

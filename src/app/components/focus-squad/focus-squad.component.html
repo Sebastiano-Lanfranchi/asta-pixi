@@ -1,6 +1,6 @@
 <ng-container *ngIf="squads">
     <div *ngIf="squads.length == 0" class="text-white">NESSUNA SQUADRA AGGIUNTA</div>
-    <div class="w-full p-4 " *ngFor="let squad of squads" class="text-white border border-white rounded-lg">
+    <div *ngFor="let squad of squads" class="text-white border border-white rounded-lg w-3/4 p-2 mx-auto mb-1">
         <div class="flex justify-around items-center">
             <div><img [src]="squad.logo" alt="" class="w-16"></div>
             <div>
@@ -34,7 +34,7 @@
                 <tbody>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let player of squad.players">
                         <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <img [src]="player.photo" class="w-10">
+                            <img [src]="player.photo" class="w-14">
                         </th>
                         <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{player.name}}
@@ -46,11 +46,12 @@
                             {{player.team}}
                         </td>
                         <td class="py-4 px-6 text-white">
-                            <img [src]="player.logoT" class="w-10">
+                            <img [src]="player.logoT" class="w-14">
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <div class="mx-auto text-center"><b>Crediti rimanenti: {{squad.crediti}}</b></div>
         </div>
     </div>
 </ng-container>

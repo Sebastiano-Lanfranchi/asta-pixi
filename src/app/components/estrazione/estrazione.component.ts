@@ -269,15 +269,12 @@ export class EstrazioneComponent implements OnInit {
     }else{
       if(JSON.parse(localStorage.getItem('players')!) === null || JSON.parse(localStorage.getItem('players')!) === undefined){
          this.GenerateData();
-         this.GenerateData();
         this.generateDownloadJsonUri();
       }else{
         this.selectedPlayer = JSON.parse(localStorage.getItem('selectedPlayer')!)
-        this.GenerateData();
         this.generateDownloadJsonUri();
         this.isLoader = false;
       }
-     
     }
   }
 
@@ -289,8 +286,7 @@ export class EstrazioneComponent implements OnInit {
         y['estratto'] = false;
         y['preso'] = false;
         y['logoT'] = x.team.logo;
-        this.players.push(y);
-      })
+        this.dataTeams.topPlayers.includes(y.id) ? y['top'] = true : y['top'] = false;
     })
     this.daGenerare = false;
     localStorage.removeItem('selectedPlayer');
@@ -304,7 +300,8 @@ export class EstrazioneComponent implements OnInit {
     })    
     this.daGenerare = false;
     this.isLoader = false;
-  }
+  })
+}
 
   Elimina() {
     Swal.fire({

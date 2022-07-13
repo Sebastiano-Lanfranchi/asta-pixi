@@ -10,26 +10,24 @@
 </div>
 <div class="flex justify-around w-3/4 mb-10 mx-auto">
     <button *ngIf="daGenerare" (click)="CheckLocalStorage()" type="button"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Genera
-        estrazione</button>
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Genera estrazione</button>
     <button *ngIf="daGenerare == false" (click)="Elimina()" type="button"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Elimina
-        estrazione</button>
-    <a class="bg-yellow-500 hover:bg-yellow-700 text-white text-center font-bold py-2 px-4 rounded mt-2 w-48" title="Download JSON" [href]="jsonDown" download="download.json">download json</a>
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Elimina estrazione</button>
+    <a class="bg-yellow-500 hover:bg-yellow-700 text-white text-center font-bold py-2 px-4 rounded mt-2 w-48"
+        title="Download JSON" [href]="jsonDown" download="download.json">Download json</a>
     <button type="button" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded mt-2 w-40"
         (click)="SelectRandom()">Estrai nuovo</button>
 </div>
 <div class="container" style="margin: 0 auto" *ngIf="!daGenerare">
 
     <!-- NON FILTRATA -->
-    <div *ngIf="!isFiltered" class="">
 
+    <div *ngIf="!isFiltered" class="">
         <div style="text-align: center; margin-bottom: 20px">
             <select [(ngModel)]="roleSelected" class="text-cyan-50 bg-slate-900 m-2 p-2">
                 <option *ngFor="let position of roleArr" [value]="position">{{position}}</option>
             </select>
         </div>
-
         <div class="card" style="border: 2px solid white; border-radius: 10px">
             <div class="card-img"><img style=" display: block; margin-left: auto; margin-right: auto;"
                     [src]="selectedPlayer.photo"></div>
@@ -65,9 +63,10 @@
                     (click)="Associa()">Associa</button>
             </div>
         </div>
-
     </div>
+
     <!-- FILTRATA -->
+
     <div *ngIf="isFiltered" class="mt-2">
         <div class="flex justify-around">
             <div>
@@ -93,7 +92,7 @@
         </div>
         <div class="flex justify-around w-3/4 flex-wrap" style="margin: 0 auto" *ngIf="ready">
             <ng-container *ngFor="let find of arrfilter[0]">
-                <div class="flex justify-center mx-8 mb-5 border border-white rounded-lg p-1"
+                <div Class="flex justify-center mx-8 mb-5 border borderrounded-lg p-1" [ngClass]="{'border-white': !find.top, 'border-yellow-500': find.top}"
                     *ngIf="find.preso != true">
                     <div class="rounded-lg shadow-lg bg-slate-900 w-52 text-center">
                         <a href="#!">
@@ -113,9 +112,7 @@
                     </div>
                 </div>
             </ng-container>
-
         </div>
-
     </div>
 </div>
 <div *ngIf="isLoader" class="spinner">

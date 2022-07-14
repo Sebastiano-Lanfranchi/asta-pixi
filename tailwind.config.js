@@ -4,9 +4,12 @@ module.exports = {
   theme: {
     screens: {
       'sm': {'max': '639px'},
-
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'fut-card': "url('src/assets/gold1.png')"
+      }
+    },
   },
   plugins: [],
 }

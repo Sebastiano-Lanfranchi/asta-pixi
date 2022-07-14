@@ -49,7 +49,7 @@ export class EstrazioneComponent implements OnInit {
       console.log(this.squadNameSelect)
       this.squadSelected = x[0].nome;
     })
-   this.CheckLocalStorage();
+    this.CheckLocalStorage();
   }
 
   Associa() {
@@ -103,17 +103,18 @@ export class EstrazioneComponent implements OnInit {
 
 
   async UpdateSquadPlayer() {
+    localStorage.removeItem('serieAOk')
     this.isLoader = true;
-     if (!JSON.parse(localStorage.getItem('SerieAOk')!)) {
-    let tmp = SerieA;
+    if (!JSON.parse(localStorage.getItem('SerieAOk')!)) {
+      let tmp = JSON.parse(JSON.stringify(SerieA));
       var isReady = new Promise((resolve, reject) => {
         this.isLoader = true;
-        tmp.teams.forEach((team, index) => {
+        tmp.teams.forEach((team: any, index: any) => {
           setTimeout(() => {
             const options = {
               method: 'GET',
               url: 'https://v3.football.api-sports.io/players/squads',
-              params: { team: team.team.id },
+              params: { team: team.id },
               headers: {
                 "x-rapidapi-host": "v3.football.api-sports.io",
                 "x-rapidapi-key": "11d9e2510d0bf0efdc2fcc80b67358da"
@@ -125,16 +126,15 @@ export class EstrazioneComponent implements OnInit {
               console.error(error);
             });
           }, 400 * (index + 1));
-          if (index == 19)
-         this.updateSerieA = tmp;
-        localStorage.setItem('SerieAOk', JSON.stringify(this.updateSerieA));
-        this.isLoader = false;
-        Swal.fire(
-          'Ottimo!',
-          'Ultimi aggiornamenti di mercato salvati!',
-          'success'
-        )
-        resolve(true)
+          this.updateSerieA = tmp;
+          localStorage.setItem('SerieAOk', JSON.stringify(this.updateSerieA));
+          this.isLoader = false;
+          Swal.fire(
+            'Ottimo!',
+            'Ultimi aggiornamenti di mercato salvati!',
+            'success'
+          )
+          resolve(true)
         });
       });
       return isReady
@@ -145,37 +145,36 @@ export class EstrazioneComponent implements OnInit {
     var theJSON = JSON.stringify(JSON.parse(localStorage.getItem('SerieAOk')!));
     var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
     this.jsonDown = uri;
-}
+  }
 
   SelectRandom() {
     var BreakException = {}
     this.playerArr = JSON.parse(localStorage.getItem('players')!).sort(() => 0.5 - Math.random());
     let tempArr = [...this.playerArr.filter((x: any) => x.position == this.roleSelected)]
-    for (let index = 0; index < tempArr.length; index++) {
-      if (tempArr.some((x: any) => x.estratto !== true && x.position == this.roleSelected)) {
-        localStorage.setItem('selectedPlayer', JSON.stringify(tempArr[index]));
-        this.selectedPlayer = JSON.parse(localStorage.getItem('selectedPlayer')!);
-        this.playerArr.forEach((player: any) => {
-          try {
-            if (player.name == JSON.parse(localStorage.getItem('selectedPlayer')!).name && player.team == JSON.parse(localStorage.getItem('selectedPlayer')!).team) {
-              this.selectedPlayer.estratto = true;
-              player.estratto = true;
-              if (player.estratto === true) throw BreakException;
-              console.log(player);
-            }
+    if (tempArr.some((x: any) => x.estratto !== true && x.position == this.roleSelected)) {
+      let daCiclare = tempArr.filter(z => z.estratto == false && z.position == this.roleSelected);
+      localStorage.setItem('selectedPlayer', JSON.stringify(daCiclare[0]));
+      this.selectedPlayer = JSON.parse(localStorage.getItem('selectedPlayer')!);
+      this.playerArr.forEach((player: any) => {
+        try {
+          if (player.name == JSON.parse(localStorage.getItem('selectedPlayer')!).name && player.team == JSON.parse(localStorage.getItem('selectedPlayer')!).team) {
+            this.selectedPlayer.estratto = true;
+            player.estratto = true;
+            if (player.estratto === true) throw BreakException;
+            console.log(player);
           }
-          catch (e) {
-            if (e !== BreakException) throw e;
-          }
-        });
-        break;
-      } else {
-        Swal.fire({
-          icon: 'success',
-          title: 'Complimenti',
-          text: "Tutti i giocatori " + this.roleSelected + " sono stati estratti!",
-        })
-      }
+        }
+        catch (e) {
+          localStorage.setItem('players', JSON.stringify(this.playerArr))
+          if (e !== BreakException) throw e;
+        }
+      })
+    } else {
+      Swal.fire({
+        icon: 'success',
+        title: 'Complimenti',
+        text: "Tutti i giocatori " + this.roleSelected + " sono stati estratti!",
+      })
     }
     localStorage.setItem('players', JSON.stringify(this.playerArr));
   }
@@ -258,19 +257,19 @@ export class EstrazioneComponent implements OnInit {
       this.isFiltered = false;
   }
 
- async  CheckLocalStorage(){
-  this.isLoader = true;
-    if(JSON.parse(localStorage.getItem('SerieAOk')!) === null){
-      this.UpdateSquadPlayer().then((value)=>{
-        if(value === true)
-        this.GenerateData();
+  async CheckLocalStorage() {
+    this.isLoader = true;
+    if (JSON.parse(localStorage.getItem('SerieAOk')!) === null) {
+      this.UpdateSquadPlayer().then((value) => {
+        if (value === true)
+          this.GenerateData();
         this.generateDownloadJsonUri();
       });
-    }else{
-      if(JSON.parse(localStorage.getItem('players')!) === null || JSON.parse(localStorage.getItem('players')!) === undefined){
-         this.GenerateData();
+    } else {
+      if (JSON.parse(localStorage.getItem('players')!) === null || JSON.parse(localStorage.getItem('players')!) === undefined) {
+        this.GenerateData();
         this.generateDownloadJsonUri();
-      }else{
+      } else {
         this.selectedPlayer = JSON.parse(localStorage.getItem('selectedPlayer')!)
         this.generateDownloadJsonUri();
         this.isLoader = false;
@@ -286,22 +285,25 @@ export class EstrazioneComponent implements OnInit {
         y['estratto'] = false;
         y['preso'] = false;
         y['logoT'] = x.team.logo;
-        this.dataTeams.topPlayers.includes(y.id) ? y['top'] = true : y['top'] = false;
+        if (this.dataTeams.topPlayers.includes(y.id))
+          y['top'] = true
+        else
+          y['top'] = false
+        this.players.push(y)
+        // this.dataTeams.topPlayers.includes(y.id) ? y['top'] = true : y['top'] = false;
+      })
+      this.daGenerare = false;
+      localStorage.setItem('players', JSON.stringify(this.players));
+      this.SelectRandom();
+      Swal.fire({
+        icon: 'success',
+        title: 'Estrazione generata',
+        text: 'Eliminazione generata con successo!',
+      })
+      this.daGenerare = false;
+      this.isLoader = false;
     })
-    this.daGenerare = false;
-    localStorage.removeItem('selectedPlayer');
-    localStorage.removeItem('players');
-    localStorage.setItem('players', JSON.stringify(this.players));
-    this.SelectRandom();
-    Swal.fire({
-      icon: 'success',
-      title: 'Estrazione generata',
-      text: 'Eliminazione generata con successo!',
-    })    
-    this.daGenerare = false;
-    this.isLoader = false;
-  })
-}
+  }
 
   Elimina() {
     Swal.fire({

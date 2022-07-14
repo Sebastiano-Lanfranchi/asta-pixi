@@ -10,7 +10,8 @@
 </div>
 <div class="flex justify-around w-3/4 mb-10 mx-auto">
     <button *ngIf="daGenerare" (click)="CheckLocalStorage()" type="button"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Genera estrazione</button>
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Genera
+        estrazione</button>
     <button *ngIf="daGenerare == false" (click)="Elimina()" type="button"
         class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Elimina estrazione</button>
     <a class="bg-yellow-500 hover:bg-yellow-700 text-white text-center font-bold py-2 px-4 rounded mt-2 w-48"
@@ -28,39 +29,30 @@
                 <option *ngFor="let position of roleArr" [value]="position">{{position}}</option>
             </select>
         </div>
-        <div class="card" style="border: 2px solid white; border-radius: 10px">
-            <div class="card-img"><img style=" display: block; margin-left: auto; margin-right: auto;"
-                    [src]="selectedPlayer.photo"></div>
-            <div class="card-body">
-                <div class="flex justify-around">
-                    <div><b>{{selectedPlayer.name}}</b></div>
+        <div class="card bg-contain bg-no-repeat"  [ngClass]="{'bg-[url(src/assets/gold1.png)] text-black': !selectedPlayer.top, 'bg-[url(src/assets/op.png)] text-white': selectedPlayer.top}">
+            <div class="card-img" [ngClass]="{' text-black': !selectedPlayer.top, ' text-white': selectedPlayer.top}">
+                <img class="block mx-auto border border-black" [src]="selectedPlayer.photo">
+                <div class="flex justify-center items-center">
+                    <div class="mt-3 text-2xl mr-3"><b>{{selectedPlayer.name}}</b></div>
+                    <div class="logo"><img style="width: 45px; height: 45px" [src]="selectedPlayer.logoT"></div>
                 </div>
-                <div class="flex justify-around">
-                    <div>Age: {{selectedPlayer.age}}</div>
+                <div class="flex  justify-center mr-3">
+                    <div class="mr-2">Age: {{selectedPlayer.age}}</div>
                     <div>Role: {{selectedPlayer.position}}</div>
                 </div>
-                <div class="flex justify-around">
-                    <div>Team: {{selectedPlayer.team}}</div>
-
-                </div>
-                <div class="flex justify-around">
-                    <div class="logo"><img style="width: 75px; height: 75px" [src]="selectedPlayer.logoT"></div>
-                </div>
             </div>
-            <div class="card-footer m-2"></div>
-            <label for="squad">Squadra:</label>
-            <br>
-            <select [(ngModel)]="squadSelected" id="squad" class="text-cyan-50 bg-slate-900 m-2 w-64">
-                <option *ngFor="let squad of squadSub" [value]="squad.nome">{{squad.nome}}</option>
-            </select>
-            <br>
-            <label for="crediti m-2">Crediti:</label>
-            <br>
-            <input type="number" name="crediti" id="crediti" class="text-cyan-50 bg-slate-900 m-2 w-64"
-                [(ngModel)]="creditiSpesi" step="1" min="0">
-            <div class="text-center">
-                <button type="button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-2"
-                    (click)="Associa()">Associa</button>
+            <div class="card-footer m-2 pt-16">
+                <select [(ngModel)]="squadSelected" id="squad" class="text-cyan-50 bg-slate-900 m-2 w-64">
+                    <option *ngFor="let squad of squadSub" [value]="squad.nome">{{squad.nome}}</option>
+                </select>
+               <br />
+                <input type="number" name="crediti" id="crediti" class="text-cyan-50 bg-slate-900 m-2 w-64"
+                    [(ngModel)]="creditiSpesi" step="1" min="0">
+                <div class="text-center">
+                    <button type="button"
+                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-2"
+                        (click)="Associa()">Associa</button>
+                </div>
             </div>
         </div>
     </div>
@@ -92,8 +84,8 @@
         </div>
         <div class="flex justify-around w-3/4 flex-wrap" style="margin: 0 auto" *ngIf="ready">
             <ng-container *ngFor="let find of arrfilter[0]">
-                <div Class="flex justify-center mx-8 mb-5 border borderrounded-lg p-1" [ngClass]="{'border-white': !find.top, 'border-yellow-500': find.top}"
-                    *ngIf="find.preso != true">
+                <div Class="flex justify-center mx-8 mb-5 border borderrounded-lg p-1"
+                    [ngClass]="{'border-white': !find.top, 'border-yellow-500': find.top}" *ngIf="find.preso != true">
                     <div class="rounded-lg shadow-lg bg-slate-900 w-52 text-center">
                         <a href="#!">
                             <img class="rounded-t-lg m-1" style="margin: 0 auto" [src]="find.photo" alt="" />

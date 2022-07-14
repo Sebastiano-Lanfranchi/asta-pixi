@@ -122,12 +122,11 @@ export class EstrazioneComponent implements OnInit {
             };
             axios.request(options).then(function (response) {
               team.team.players = response.data.reponse[0].players;
+              localStorage.setItem('SerieAOk', JSON.stringify(tmp));
             }).catch(function (error) {
               console.error(error);
             });
           }, 400 * (index + 1));
-          this.updateSerieA = tmp;
-          localStorage.setItem('SerieAOk', JSON.stringify(this.updateSerieA));
           this.isLoader = false;
           Swal.fire(
             'Ottimo!',

@@ -103,7 +103,6 @@ export class EstrazioneComponent implements OnInit {
 
 
   async UpdateSquadPlayer() {
-    localStorage.removeItem('serieAOk')
     this.isLoader = true;
     if (!JSON.parse(localStorage.getItem('SerieAOk')!)) {
       let tmp = JSON.parse(JSON.stringify(SerieA));
@@ -120,14 +119,19 @@ export class EstrazioneComponent implements OnInit {
                 "x-rapidapi-key": "11d9e2510d0bf0efdc2fcc80b67358da"
               }
             };
-            axios.request(options).then(function (response) {
-              team.team.players = response.data.reponse[0].players;
-              localStorage.setItem('SerieAOk', JSON.stringify(tmp));
-            }).catch(function (error) {
+            axios.request(options).then((response)=> {
+              if(response.data.reponse[0].players){
+                 team.team.players = JSON.stringify(response.data.reponse[0].players);
+                 localStorage.setItem('SerieAOk', JSON.stringify(tmp));
+              }
+            }).catch((error)=> {
+              localStorage.setItem('SerieAOk', JSON.stringify(SerieA));
+              this.GenerateData()
               console.error(error);
             });
           }, 400 * (index + 1));
           this.isLoader = false;
+          this.GenerateData();
           Swal.fire(
             'Ottimo!',
             'Ultimi aggiornamenti di mercato salvati!',
@@ -256,16 +260,15 @@ export class EstrazioneComponent implements OnInit {
       this.isFiltered = false;
   }
 
-  async CheckLocalStorage() {
+   CheckLocalStorage() {
     this.isLoader = true;
     if (JSON.parse(localStorage.getItem('SerieAOk')!) === null) {
       this.UpdateSquadPlayer().then((value) => {
         if (value === true)
-          this.GenerateData();
         this.generateDownloadJsonUri();
       });
     } else {
-      if (JSON.parse(localStorage.getItem('players')!) === null || JSON.parse(localStorage.getItem('players')!) === undefined) {
+      if (JSON.parse(localStorage.getItem('players')!) === null) {
         this.GenerateData();
         this.generateDownloadJsonUri();
       } else {

@@ -113,7 +113,7 @@ export class EstrazioneComponent implements OnInit {
             const options = {
               method: 'GET',
               url: 'https://v3.football.api-sports.io/players/squads',
-              params: { team: team.id },
+              params: { team: team.team.id },
               headers: {
                 "x-rapidapi-host": "v3.football.api-sports.io",
                 "x-rapidapi-key": "11d9e2510d0bf0efdc2fcc80b67358da"
@@ -121,7 +121,7 @@ export class EstrazioneComponent implements OnInit {
             };
             axios.request(options).then((response)=> {
               if(response.data.reponse[0].players){
-                 team.team.players = JSON.stringify(response.data.reponse[0].players);
+                 team.team.players = response.data.reponse[0].players;
                  localStorage.setItem('SerieAOk', JSON.stringify(tmp));
               }
             }).catch((error)=> {

@@ -29,7 +29,8 @@
                 <option *ngFor="let position of roleArr" [value]="position">{{position}}</option>
             </select>
         </div>
-        <div class="card bg-contain bg-no-repeat"  [ngClass]="{'bg-[url(src/assets/gold1.png)] text-black': !selectedPlayer.top, 'bg-[url(src/assets/op.png)] text-white': selectedPlayer.top}">
+        <div class="card bg-contain bg-no-repeat"
+            [ngClass]="{'bg-[url(src/assets/gold1.png)] text-black': !selectedPlayer.top, 'bg-[url(src/assets/op.png)] text-white': selectedPlayer.top}">
             <div class="card-img" [ngClass]="{' text-black': !selectedPlayer.top, ' text-white': selectedPlayer.top}">
                 <img class="block mx-auto border border-black" [src]="selectedPlayer.photo">
                 <div class="flex justify-center items-center">
@@ -45,7 +46,7 @@
                 <select [(ngModel)]="squadSelected" id="squad" class="text-cyan-50 bg-slate-900 m-2 w-64">
                     <option *ngFor="let squad of squadSub" [value]="squad.nome">{{squad.nome}}</option>
                 </select>
-               <br />
+                <br />
                 <input type="number" name="crediti" id="crediti" class="text-cyan-50 bg-slate-900 m-2 w-64"
                     [(ngModel)]="creditiSpesi" step="1" min="0">
                 <div class="text-center">

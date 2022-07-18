@@ -28,7 +28,8 @@ export class SquadreGenComponent implements OnInit {
     this.isLoader = true;
     let tmp = JSON.parse(JSON.stringify(SerieA));
     this.isLoader = true;
-    tmp.teams.forEach((team: any, index: any) => {
+    tmp.teams.forEach((team: any) => {
+      let counter = 0;
       setTimeout(() => {
         const options = {
           method: 'GET',
@@ -41,11 +42,13 @@ export class SquadreGenComponent implements OnInit {
         };
         axios.request(options).then((response) => {
           team.team.players = response.data.reponse[0].players;
+          counter = counter + 1;
+          console.log(counter);
         }).catch((error) => {
           localStorage.setItem('SerieA', JSON.stringify(SerieA));
           console.error(error);
         });
-        if (index == 19) {
+        if (counter == 19) {
           this.isLoader = false;
           localStorage.setItem('SerieA', JSON.stringify(tmp));
           Swal.fire(
@@ -54,8 +57,7 @@ export class SquadreGenComponent implements OnInit {
             'success'
           )
         }
-      }, 400 * (index + 1));
-
+      }, 400 * (counter + 1));
     });
   }
 }

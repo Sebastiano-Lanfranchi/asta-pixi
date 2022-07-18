@@ -85,15 +85,15 @@
         </div>
         <div class="flex justify-around w-3/4 flex-wrap" style="margin: 0 auto" *ngIf="ready">
             <ng-container *ngFor="let find of arrfilter[0]">
-                <div Class="flex justify-center mx-8 mb-5 border borderrounded-lg p-1"
-                    [ngClass]="{'border-white': !find.top, 'border-yellow-500': find.top}" *ngIf="find.preso != true">
-                    <div class="rounded-lg shadow-lg bg-slate-900 w-52 text-center">
+                <div Class="flex justify-center mx-8 mb-5 p-1 bg-cover bg-no-repeat w-80 pb-14" [ngClass]="{'bg-[url(src/assets/gold1.png)] text-black': !find.top, 'bg-[url(src/assets/op.png)] text-white': find.top}"
+                 *ngIf="find.preso != true">
+                    <div class="rounded-lg shadow-lg w-52 text-center mt-8">
                         <a href="#!">
                             <img class="rounded-t-lg m-1" style="margin: 0 auto" [src]="find.photo" alt="" />
                         </a>
                         <div class="p-6">
-                            <h5 class="text-xl font-medium mb-2 text-white">{{find.name}}</h5>
-                            <div class="text-white">
+                            <h5 class="text-xl font-medium mb-2">{{find.name}}</h5>
+                            <div>
                                 <div>{{find.team}}</div>
                                 <div>{{find.position}}</div>
                                 <div style="margin: 0 auto"><img [src]="find.logoT" style="margin: 0 auto" class="w-10">

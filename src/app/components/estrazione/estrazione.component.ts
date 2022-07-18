@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase-service.service'
 import Swal from 'sweetalert2';
-import axios from 'Axios';
+
 import * as SerieA from '../../json/serieA.json';
 import { NgxSpinnerService } from "ngx-spinner";
 import { BehaviorSubject, Observable, timer } from 'rxjs';
@@ -99,49 +99,6 @@ export class EstrazioneComponent implements OnInit {
         }
       }
     })
-  }
-
-
-  async UpdateSquadPlayer() {
-    this.isLoader = true;
-    if (!JSON.parse(localStorage.getItem('SerieAOk')!)) {
-      let tmp = JSON.parse(JSON.stringify(SerieA));
-      var isReady = new Promise((resolve, reject) => {
-        this.isLoader = true;
-        tmp.teams.forEach((team: any, index: any) => {
-          setTimeout(() => {
-            const options = {
-              method: 'GET',
-              url: 'https://v3.football.api-sports.io/players/squads',
-              params: { team: team.team.id },
-              headers: {
-                "x-rapidapi-host": "v3.football.api-sports.io",
-                "x-rapidapi-key": "11d9e2510d0bf0efdc2fcc80b67358da"
-              }
-            };
-            axios.request(options).then((response)=> {
-              if(response.data.reponse[0].players){
-                 team.team.players = response.data.reponse[0].players;
-                 localStorage.setItem('SerieAOk', JSON.stringify(tmp));
-              }
-            }).catch((error)=> {
-              localStorage.setItem('SerieAOk', JSON.stringify(SerieA));
-              this.GenerateData()
-              console.error(error);
-            });
-          }, 400 * (index + 1));
-          this.isLoader = false;
-          this.GenerateData();
-          Swal.fire(
-            'Ottimo!',
-            'Ultimi aggiornamenti di mercato salvati!',
-            'success'
-          )
-          resolve(true)
-        });
-      });
-      return isReady
-    }
   }
 
   generateDownloadJsonUri() {
@@ -262,11 +219,10 @@ export class EstrazioneComponent implements OnInit {
 
    CheckLocalStorage() {
     this.isLoader = true;
-    if (JSON.parse(localStorage.getItem('SerieAOk')!) === null) {
-      this.UpdateSquadPlayer().then((value) => {
-        if (value === true)
-        this.generateDownloadJsonUri();
-      });
+    if (JSON.parse(localStorage.getItem('SerieA')!) === null) {
+     localStorage.setItem('SerieA', JSON.stringify(SerieA));
+     this.GenerateData();
+     this.generateDownloadJsonUri();
     } else {
       if (JSON.parse(localStorage.getItem('players')!) === null) {
         this.GenerateData();
@@ -280,7 +236,7 @@ export class EstrazioneComponent implements OnInit {
   }
 
   GenerateData() {
-    this.dataTeams = JSON.parse(localStorage.getItem('SerieAOk')!);
+    this.dataTeams = JSON.parse(localStorage.getItem('SerieA')!);
     this.dataTeams.teams.forEach((x: any) => {
       x.team.players.forEach((y: any) => {
         y['team'] = x.team.name;

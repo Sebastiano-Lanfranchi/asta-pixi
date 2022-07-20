@@ -144,6 +144,23 @@ export class EstrazioneComponent implements OnInit {
     }
   }
 
+  GetTransfer(){
+    const options = {
+      method: 'GET',
+      url: 'https://transfermarket.p.rapidapi.com/clubs/get-squad',
+      params: {id: '2919'},
+      headers: {
+        'X-RapidAPI-Key': '2dc7824b3cmsh3c8fdbe72d2cae1p183851jsn860ba2af6845',
+        'X-RapidAPI-Host': 'transfermarket.p.rapidapi.com'
+      }
+    };
+    
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+    }).catch(function (error) {
+      console.error(error);
+    });
+  }
   generateDownloadJsonUri() {
     var theJSON = JSON.stringify(JSON.parse(localStorage.getItem('SerieAOk')!));
     var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));

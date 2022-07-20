@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase-service.service'
 import Swal from 'sweetalert2';
 
-import * as SerieA from '../../json/serieA.json';
+import * as SerieA from '../../json/serieAtransfer.json';
 import { NgxSpinnerService } from "ngx-spinner";
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -30,8 +30,8 @@ export class EstrazioneComponent implements OnInit {
   squadSub: any;
   squadSelected: any;
   creditiSpesi = 0;
-  roleArr = ['Goalkeeper', 'Defender', 'Midfielder', 'Attacker'];
-  roleSelected = 'Goalkeeper';
+  roleArr = [{value: 'Torwart', it:'Portiere'}, {value:'Abwehr',it:'Difensore'}, {value: 'Midfielder',it:'centrocampista'} ,{value:'Attacker',it:'Attaccante'}];
+  roleSelected = 'Torwart';
   estrMancanti = 0;
   isFiltered = false;
   squadNameSelect: any;
@@ -171,9 +171,9 @@ export class EstrazioneComponent implements OnInit {
   SelectRandom() {
     var BreakException = {}
     this.playerArr = JSON.parse(localStorage.getItem('players')!).sort(() => 0.5 - Math.random());
-    let tempArr = [...this.playerArr.filter((x: any) => x.position == this.roleSelected)]
-    if (tempArr.some((x: any) => x.estratto !== true && x.position == this.roleSelected)) {
-      let daCiclare = tempArr.filter(z => z.estratto == false && z.position == this.roleSelected);
+    let tempArr = [...this.playerArr.filter((x: any) => x.positions.first.group == this.roleSelected)]
+    if (tempArr.some((x: any) => x.estratto !== true && x.positions.first.group == this.roleSelected)) {
+      let daCiclare = tempArr.filter(z => z.estratto == false && z.positions.first.group == this.roleSelected);
       localStorage.setItem('selectedPlayer', JSON.stringify(daCiclare[0]));
       this.selectedPlayer = JSON.parse(localStorage.getItem('selectedPlayer')!);
       this.playerArr.forEach((player: any) => {
@@ -299,12 +299,12 @@ export class EstrazioneComponent implements OnInit {
   GenerateData() {
     this.dataTeams = JSON.parse(localStorage.getItem('SerieA')!);
     this.dataTeams.teams.forEach((x: any) => {
-      x.team.players.forEach((y: any) => {
-        y['team'] = x.team.name;
+      x.squad.forEach((y: any) => {
+        y['team'] = x.name;
         y['estratto'] = false;
         y['preso'] = false;
-        y['logoT'] = x.team.logo;
-        if (this.dataTeams.topPlayers.includes(y.id))
+        y['logoT'] = x.image;
+        if (y.marketValue.value >= 50000000)
           y['top'] = true
         else
           y['top'] = false

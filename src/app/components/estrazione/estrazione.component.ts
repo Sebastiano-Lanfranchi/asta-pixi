@@ -30,7 +30,7 @@ export class EstrazioneComponent implements OnInit {
   squadSub: any;
   squadSelected: any;
   creditiSpesi = 0;
-  roleArr = [{value: 'Torwart', it:'Portiere'}, {value:'Abwehr',it:'Difensore'}, {value: 'Midfielder',it:'centrocampista'} ,{value:'Attacker',it:'Attaccante'}];
+  roleArr = [{ value: 'Torwart', it: 'Portiere' }, { value: 'Abwehr', it: 'Difensore' }, { value: 'Midfielder', it: 'centrocampista' }, { value:['Attacker', 'Sturm'] , it: 'Attaccante' }];
   roleSelected = 'Torwart';
   estrMancanti = 0;
   isFiltered = false;
@@ -120,12 +120,12 @@ export class EstrazioneComponent implements OnInit {
                 "x-rapidapi-key": "11d9e2510d0bf0efdc2fcc80b67358da"
               }
             };
-            axios.request(options).then((response)=> {
-              if(response.data.reponse[0].players){
-                 team.team.players = response.data.reponse[0].players;
-                 localStorage.setItem('SerieAOk', JSON.stringify(tmp));
+            axios.request(options).then((response) => {
+              if (response.data.reponse[0].players) {
+                team.team.players = response.data.reponse[0].players;
+                localStorage.setItem('SerieAOk', JSON.stringify(tmp));
               }
-            }).catch((error)=> {
+            }).catch((error) => {
               localStorage.setItem('SerieAOk', JSON.stringify(SerieA));
               this.GenerateData()
               console.error(error);
@@ -145,17 +145,17 @@ export class EstrazioneComponent implements OnInit {
     }
   }
 
-  GetTransfer(){
+  GetTransfer() {
     const options = {
       method: 'GET',
       url: 'https://transfermarket.p.rapidapi.com/clubs/get-squad',
-      params: {id: '2919'},
+      params: { id: '2919' },
       headers: {
         'X-RapidAPI-Key': '2dc7824b3cmsh3c8fdbe72d2cae1p183851jsn860ba2af6845',
         'X-RapidAPI-Host': 'transfermarket.p.rapidapi.com'
       }
     };
-    
+
     axios.request(options).then(function (response) {
       console.log(response.data);
     }).catch(function (error) {
@@ -278,12 +278,12 @@ export class EstrazioneComponent implements OnInit {
       this.isFiltered = false;
   }
 
-   CheckLocalStorage() {
+  CheckLocalStorage() {
     this.isLoader = true;
     if (JSON.parse(localStorage.getItem('SerieA')!) === null) {
-     localStorage.setItem('SerieA', JSON.stringify(SerieA));
-     this.GenerateData();
-     this.generateDownloadJsonUri();
+      localStorage.setItem('SerieA', JSON.stringify(SerieA));
+      this.GenerateData();
+      this.generateDownloadJsonUri();
     } else {
       if (JSON.parse(localStorage.getItem('players')!) === null) {
         this.GenerateData();
@@ -305,9 +305,13 @@ export class EstrazioneComponent implements OnInit {
         y['preso'] = false;
         y['logoT'] = x.image;
         if (y.marketValue.value >= 50000000)
-          y['top'] = true
-        else
-          y['top'] = false
+          y['type'] = 'top'
+        else if (y.marketValue.value >= 10000000)
+          y['type'] = 'good'
+        else if (y.marketValue.value < 10000000)
+          y['type'] = 'normal'
+        if (y.captain == true)
+          y['type'] = 'captain'
         this.players.push(y)
         // this.dataTeams.topPlayers.includes(y.id) ? y['top'] = true : y['top'] = false;
       })

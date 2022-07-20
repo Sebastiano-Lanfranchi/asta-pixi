@@ -32,7 +32,7 @@
         <div class="card bg-contain bg-no-repeat"
             [ngClass]="{'bg-[url(src/assets/gold1.png)] text-black': !selectedPlayer.top, 'bg-[url(src/assets/op.png)] text-white': selectedPlayer.top}">
             <div class="card-img" [ngClass]="{' text-black': !selectedPlayer.top, ' text-white': selectedPlayer.top}">
-                <img class="block mx-auto border border-black" [src]="selectedPlayer.photo">
+                <img class="block mx-auto border border-black" [src]="selectedPlayer.image">
                 <div class="flex justify-center items-center">
                     <div class="mt-3 text-2xl w-52 mr-3"><b>{{selectedPlayer.name}}</b></div>
                     <div class="logo"><img style="width: 45px; height: 45px" [src]="selectedPlayer.logoT"></div>
@@ -85,17 +85,31 @@
         </div>
         <div class="flex justify-around w-3/4 flex-wrap" style="margin: 0 auto" *ngIf="ready">
             <ng-container *ngFor="let find of arrfilter[0]">
-                <div Class="flex justify-center mx-8 mb-5 p-1 bg-cover bg-no-repeat w-80 pb-14" [ngClass]="{'bg-[url(src/assets/gold1.png)] text-black': !find.top, 'bg-[url(src/assets/op.png)] text-white': find.top}"
+                <div Class="flex justify-center mx-8 mb-5 p-1 bg-cover bg-no-repeat w-80 pb-14" [ngClass]="{'bg-[url(src/assets/gold1.png)] text-black': find.type == 'good', 'bg-[url(src/assets/normal.png)] text-black': find.type == 'normal','bg-[url(src/assets/op.png)] text-white': find.type=='top', 'bg-[url(src/assets/captain.png)] text-white': find.type =='captain'}"
                  *ngIf="find.preso != true">
                     <div class="rounded-lg shadow-lg w-52 text-center mt-8">
                         <a href="#!">
-                            <img class="rounded-t-lg m-1" style="margin: 0 auto" [src]="find.photo" alt="" />
+                            <img class="rounded-t-lg m-1" style="margin: 0 auto" [src]="find.image" alt="" />
                         </a>
                         <div class="p-6">
                             <h5 class="text-xl font-medium mb-2">{{find.name}}</h5>
                             <div>
                                 <div>{{find.team}}</div>
-                                <div>{{find.position}}</div>
+                                <div>   
+                                    <ng-template *ngIf="find.positions.first.group == 'Mittelfeld'">
+                                        Centrocampista
+                                    </ng-template>
+                                    <ng-template *ngIf="find.positions.first.group == 'Mittelfeld'">
+                                        Centrocampista
+                                    </ng-template>
+                                    <ng-template *ngIf="find.positions.first.group == 'Mittelfeld'">
+                                        Centrocampista
+                                    </ng-template>
+                                    <ng-template *ngIf="find.positions.first.group == 'Mittelfeld'">
+                                        Centrocampista
+                                    </ng-template>
+                                   
+                                </div>
                                 <div style="margin: 0 auto"><img [src]="find.logoT" style="margin: 0 auto" class="w-10">
                                 </div>
                             </div>

@@ -58,7 +58,7 @@
   "teams": [
     {
         "id": "5",
-        "name": "AC Mailand",
+        "name": "AC Milan",
         "image": "https://tmssl.akamaized.net/images/wappen/medium/5.png?lm=1605166627",
         "squad": [
             {
@@ -1754,7 +1754,7 @@
     },
     {
         "id": "46",
-        "name": "Inter Mailand",
+        "name": "Inter",
         "image": "https://tmssl.akamaized.net/images/wappen/medium/46.png?lm=1618900989",
         "squad": [
             {
@@ -3414,7 +3414,7 @@
     },
     {
         "id": "6195",
-        "name": "SSC Neapel",
+        "name": "Napoli",
         "image": "https://tmssl.akamaized.net/images/wappen/medium/6195.png?lm=1437135876",
         "squad":[
             {
@@ -5018,7 +5018,7 @@
     },
     {
         "id": "506",
-        "name": "Juventus Turin",
+        "name": "Juventus",
         "image": "https://tmssl.akamaized.net/images/wappen/medium/506.png?lm=1626441487",
         "squad": [
             {
@@ -6501,7 +6501,7 @@
     },
     {
         "id": "398",
-        "name": "Lazio Rom",
+        "name": "Lazio",
         "image": "https://tmssl.akamaized.net/images/wappen/medium/398.png?lm=1601537785",
         "squad": [
             {
@@ -8392,7 +8392,7 @@
     },
     {
         "id": "12",
-        "name": "AS Rom",
+        "name": "Roma",
         "image": "https://tmssl.akamaized.net/images/wappen/medium/12.png?lm=1533302889",
         "squad": [
             {
@@ -10087,7 +10087,7 @@
     },
     {
         "id": "430",
-        "name": "AC Florenz",
+        "name": "Fiorentina",
         "image": "https://tmssl.akamaized.net/images/wappen/medium/430.png?lm=1656660160",
         "squad":[
             {
@@ -11935,7 +11935,7 @@
     },
     {
         "id": "800",
-        "name": "Atal. Bergamo",
+        "name": "Atalanta",
         "image": "https://tmssl.akamaized.net/images/wappen/medium/800.png?lm=1438547428",
         "squad":[
             {
@@ -15546,7 +15546,7 @@
     },
     {
         "id": "416",
-        "name": "FC Turin",
+        "name": "Torino",
         "image": "https://tmssl.akamaized.net/images/wappen/medium/416.png?lm=1438548174",
         "squad":[
             {

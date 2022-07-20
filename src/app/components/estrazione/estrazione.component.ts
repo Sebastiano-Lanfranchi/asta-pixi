@@ -6,7 +6,7 @@ import * as SerieA from '../../json/serieA.json';
 import { NgxSpinnerService } from "ngx-spinner";
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
-import axios from 'axios';
+import axios from 'Axios';
 
 @Component({
   selector: 'app-estrazione',

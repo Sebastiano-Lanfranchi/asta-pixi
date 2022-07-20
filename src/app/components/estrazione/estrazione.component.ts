@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase-service.service'
 import Swal from 'sweetalert2';
-import axios from 'Axios';
+
 import * as SerieA from '../../json/serieA.json';
 import { NgxSpinnerService } from "ngx-spinner";
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
+import axios from 'axios';
 
 @Component({
   selector: 'app-estrazione',
@@ -279,11 +280,10 @@ export class EstrazioneComponent implements OnInit {
 
    CheckLocalStorage() {
     this.isLoader = true;
-    if (JSON.parse(localStorage.getItem('SerieAOk')!) === null) {
-      this.UpdateSquadPlayer().then((value) => {
-        if (value === true)
-        this.generateDownloadJsonUri();
-      });
+    if (JSON.parse(localStorage.getItem('SerieA')!) === null) {
+     localStorage.setItem('SerieA', JSON.stringify(SerieA));
+     this.GenerateData();
+     this.generateDownloadJsonUri();
     } else {
       if (JSON.parse(localStorage.getItem('players')!) === null) {
         this.GenerateData();
@@ -297,7 +297,7 @@ export class EstrazioneComponent implements OnInit {
   }
 
   GenerateData() {
-    this.dataTeams = JSON.parse(localStorage.getItem('SerieAOk')!);
+    this.dataTeams = JSON.parse(localStorage.getItem('SerieA')!);
     this.dataTeams.teams.forEach((x: any) => {
       x.team.players.forEach((y: any) => {
         y['team'] = x.team.name;

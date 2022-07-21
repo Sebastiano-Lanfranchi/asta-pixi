@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Squad } from '../../models/squad.model';
 import { FirebaseService } from '../../services/firebase-service.service';
 import axios from 'Axios';
-import * as SerieA from '../../json/serieA.json';
+import * as SerieA from '../../json/serieAtransfer.json';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -24,40 +24,6 @@ export class SquadreGenComponent implements OnInit {
     })
   }
 
-  async UpdateSquadPlayer() {
-    this.isLoader = true;
-    let tmp = JSON.parse(JSON.stringify(SerieA));
-    this.isLoader = true;
-    tmp.teams.forEach((team: any) => {
-      let counter = 0;
-      setTimeout(() => {
-        const options = {
-          method: 'GET',
-          url: 'https://v3.football.api-sports.io/players/squads',
-          params: { team: team.team.id },
-          headers: {
-            "x-rapidapi-host": "v3.football.api-sports.io",
-            "x-rapidapi-key": "11d9e2510d0bf0efdc2fcc80b67358da"
-          }
-        };
-        axios.request(options).then((response) => {
-          team.team.players = response.data.reponse[0].players;
-          counter = counter + 1;
-          console.log(counter);
-        }).catch((error) => {
-          localStorage.setItem('SerieA', JSON.stringify(SerieA));
-          console.error(error);
-        });
-        if (counter == 19) {
-          this.isLoader = false;
-          localStorage.setItem('SerieA', JSON.stringify(tmp));
-          Swal.fire(
-            'Ottimo!',
-            'Ultimi aggiornamenti di mercato salvati!',
-            'success'
-          )
-        }
-      }, 400 * (counter + 1));
-    });
-  }
 }
+
+

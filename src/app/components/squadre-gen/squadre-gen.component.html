@@ -1,45 +1,64 @@
 <div class="flex justify-aroundr" style="width: 95%; margin: 0 auto">
     <div class="preview-container sm:mb-4 w-1/3" style="color: aliceblue; " *ngIf="squad != undefined">
-        <table class="table-auto my-0 mx-auto" >
-            <thead class="text-center ">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Crediti</th>
-                    <th scope="col">Logo</th>
-                    <th scope="col">Elimina</th>
+                    <th scope="col" class="py-3 px-6">
+                        Nome
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Crediti
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Logo
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Elimina
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let squadArr of arrSquadre" class="text-center">
-                    <th scope="row" class="border-y">{{squadArr.nome}}</th>
-                    <td class="border-y">{{squadArr.crediti}}</td>
-                    <td class="border-y"><img style="width: 20px; height:20px" [src]="squadArr.logo"></td>
-                    <td class="border-y"><i class="fa-solid fa-trash text-red-500 cPointer"
-                            (click)="firebaseService.DeleteSquad(squadArr)"></i></td>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let squadArr of arrSquadre">
+                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{squadArr.nome}}
+                    </th>
+                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{squadArr.crediti}}
+                    </th>
+                    <td class="py-4 px-6 text-white">
+                        <img style="width: 20px; height:20px" [src]="squadArr.logo">
+                    </td>
+                    <td class="py-4 px-6 text-white">
+                        <i class="fa-solid fa-trash text-red-500 cPointer"
+                            (click)="firebaseService.DeleteSquad(squadArr)"></i>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="text-center w-1/3" >
+    <div class="text-center w-1/3">
         <label for="exampleFormControlInput1" class="text-white">Nome Squadra</label>
         <br>
-        <input type="text" class="text-cyan-50 bg-slate-900 m-2 p-2" style="width:400px; color:aliceblue; margin: 0 auto;"
-            id="exampleFormControlInput1" placeholder="FCDONETSK" [(ngModel)]="squad.nome">
+        <input type="text" class="text-cyan-50 bg-slate-900 m-2 p-2"
+            style="width:400px; color:aliceblue; margin: 0 auto;" id="exampleFormControlInput1" placeholder="FCDONETSK"
+            [(ngModel)]="squad.nome">
         <br />
         <label for="exampleFormControlInput1" class="text-white">Crediti</label>
         <br>
-        <input type="number" class="text-cyan-50 bg-slate-900 m-2 p-2" style="width:400px; color:aliceblue; margin: 0 auto;"
-            id="exampleFormControlInput1" placeholder="€cazzi$" step="1" min="0" [(ngModel)]="squad.crediti">
+        <input type="number" class="text-cyan-50 bg-slate-900 m-2 p-2"
+            style="width:400px; color:aliceblue; margin: 0 auto;" id="exampleFormControlInput1" placeholder="€cazzi$"
+            step="1" min="0" [(ngModel)]="squad.crediti">
         <br />
         <label for="exampleFormControlInput1" class="text-white">Logo</label>
         <br>
-        <input type="text" class="text-cyan-50 bg-slate-900 m-2 p-2" style="width:400px; color:aliceblue; margin: 0 auto;"
-            id="exampleFormControlInput1" placeholder="https://unacasettaincanada.com/" [(ngModel)]="squad.logo">
+        <input type="text" class="text-cyan-50 bg-slate-900 m-2 p-2"
+            style="width:400px; color:aliceblue; margin: 0 auto;" id="exampleFormControlInput1"
+            placeholder="https://unacasettaincanada.com/" [(ngModel)]="squad.logo">
         <br />
         <div>
             <button type="button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2"
                 (click)="firebaseService.CreateSquad(squad)">Aggiungi</button>
-            </div>
+        </div>
     </div>
     <div class="preview-container w-1/3" style="color: aliceblue; " *ngIf="squad != undefined">
         <div *ngIf="squad.nome != ''">
@@ -49,5 +68,3 @@
         <div *ngIf="squad.logo != ''"><img [src]="squad.logo" alt='logo' style="width: 150px; height: 150px"></div>
     </div>
 </div>
-<button type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mt-2"
-(click)="UpdateSquadPlayer()">Aggiorna Json</button>

@@ -30,7 +30,7 @@ export class EstrazioneComponent implements OnInit {
   squadSub: any;
   squadSelected: any;
   creditiSpesi = 0;
-  roleArr = [{ value: 'Torwart', it: 'Portiere' }, { value: 'Abwehr', it: 'Difensore' }, { value: 'Midfielder', it: 'centrocampista' }, { value:['Attacker', 'Sturm'] , it: 'Attaccante' }];
+  roleArr = [{ value: ['Torwart'], it: 'Portiere' }, { value: ['Abwehr'], it: 'Difensore' }, { value: ['Midfielder','Mittelfeld'], it: 'centrocampista' }, { value: ['Attacker', 'Sturm'], it: 'Attaccante' }];
   roleSelected = 'Torwart';
   estrMancanti = 0;
   isFiltered = false;
@@ -145,6 +145,16 @@ export class EstrazioneComponent implements OnInit {
     }
   }
 
+  getPosition(position: any) {
+    let it
+    this.roleArr.forEach((role) => {
+      if (role.value.includes(position)) {
+        it = role.it
+      }
+    })
+    return it
+  }
+
   GetTransfer() {
     const options = {
       method: 'GET',
@@ -171,9 +181,9 @@ export class EstrazioneComponent implements OnInit {
   SelectRandom() {
     var BreakException = {}
     this.playerArr = JSON.parse(localStorage.getItem('players')!).sort(() => 0.5 - Math.random());
-    let tempArr = [...this.playerArr.filter((x: any) => x.positions.first.group == this.roleSelected)]
-    if (tempArr.some((x: any) => x.estratto !== true && x.positions.first.group == this.roleSelected)) {
-      let daCiclare = tempArr.filter(z => z.estratto == false && z.positions.first.group == this.roleSelected);
+    let tempArr = [...this.playerArr.filter((x: any) =>  this.roleSelected.includes(x.positions.first.group))]
+    if (tempArr.some((x: any) => x.estratto !== true && this.roleSelected.includes(x.positions.first.group))) {
+      let daCiclare = tempArr.filter(z => z.estratto == false && this.roleSelected.includes(z.positions.first.group));
       localStorage.setItem('selectedPlayer', JSON.stringify(daCiclare[0]));
       this.selectedPlayer = JSON.parse(localStorage.getItem('selectedPlayer')!);
       this.playerArr.forEach((player: any) => {

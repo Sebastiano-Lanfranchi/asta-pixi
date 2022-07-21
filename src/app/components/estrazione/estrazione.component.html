@@ -39,7 +39,7 @@
                 </div>
                 <div class="flex  justify-center mr-3">
                     <div class="mr-2">Age: {{selectedPlayer.age}}</div>
-                    <div>Role: {{selectedPlayer.position}}</div>
+                    <div>Role: {{getPosition(selectedPlayer.positions.first.group)}}</div>
                 </div>
             </div>
             <div class="card-footer m-2 pt-16">
@@ -96,19 +96,7 @@
                             <div>
                                 <div>{{find.team}}</div>
                                 <div>   
-                                    <ng-template *ngIf="find.positions.first.group == 'Mittelfeld'">
-                                        Centrocampista
-                                    </ng-template>
-                                    <ng-template *ngIf="find.positions.first.group == 'Mittelfeld'">
-                                        Centrocampista
-                                    </ng-template>
-                                    <ng-template *ngIf="find.positions.first.group == 'Mittelfeld'">
-                                        Centrocampista
-                                    </ng-template>
-                                    <ng-template *ngIf="find.positions.first.group == 'Mittelfeld'">
-                                        Centrocampista
-                                    </ng-template>
-                                   
+                                   {{getPosition(find.positions.first.group)}}
                                 </div>
                                 <div style="margin: 0 auto"><img [src]="find.logoT" style="margin: 0 auto" class="w-10">
                                 </div>

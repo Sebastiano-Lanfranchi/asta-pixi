@@ -261,12 +261,12 @@ export class EstrazioneComponent implements OnInit {
     }
   }
 
-  async UpdateSquadPlayer() {
+   UpdateSquadPlayer() {
     this.isLoader = true;
     let tmp = JSON.parse(JSON.stringify(SerieA));
     tmp.teams.forEach((team: any, index: number) => {
       setTimeout(() => {
-        team.squad = this.GetTransfer(team.id);
+        this.GetTransfer(team.id,  team.squad);
       }, index * 1100);
     })
     setTimeout(() => {
@@ -276,7 +276,7 @@ export class EstrazioneComponent implements OnInit {
     this.isLoader = false;
   }
 
-  GetTransfer(data: string) {
+ GetTransfer(data: string, associa: any) {
     const options = {
       method: 'GET',
       url: 'https://transfermarket.p.rapidapi.com/clubs/get-squad',
@@ -287,7 +287,7 @@ export class EstrazioneComponent implements OnInit {
       }
     };
     axios.request(options).then(function (response) {
-      return response.data.squad;
+      associa = response.data.squad;
     }).catch(function (error) {
       console.error(error);
     });

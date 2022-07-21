@@ -34,13 +34,13 @@
                 <tbody>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let player of squad.players">
                         <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <img [src]="player.photo" class="w-14">
+                            <img [src]="player.image" class="w-14">
                         </th>
                         <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{player.name}}
                         </th>
                         <td class="py-4 px-6 text-white">
-                            {{player.position}}
+                            {{getPosition(player.positions.first.group)}}
                         </td>
                         <td class="py-4 px-6 text-white">
                             {{player.team}}

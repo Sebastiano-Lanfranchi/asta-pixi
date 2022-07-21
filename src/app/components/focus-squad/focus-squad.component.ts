@@ -9,7 +9,8 @@ import { FirebaseService } from 'src/app/services/firebase-service.service';
 export class FocusSquadComponent implements OnInit {
 
   squads: any;
-
+  roleArr = [{ value: ['Torwart'], it: 'Portiere' }, { value: ['Abwehr'], it: 'Difensore' }, { value: ['Midfielder', 'Mittelfeld'], it: 'centrocampista' }, { value: ['Attacker', 'Sturm'], it: 'Attaccante' }];
+  
   constructor(public firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
@@ -20,6 +21,16 @@ export class FocusSquadComponent implements OnInit {
       })
       console.log(squads)
     })
+  }
+
+  getPosition(position: any) {
+    let it
+    this.roleArr.forEach((role) => {
+      if (role.value.includes(position)) {
+        it = role.it
+      }
+    })
+    return it
   }
 
 }

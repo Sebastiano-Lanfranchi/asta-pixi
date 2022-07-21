@@ -54,8 +54,8 @@ export class EstrazioneComponent implements OnInit {
 
   Associa() {
     Swal.fire({
-      title: 'Sicuro di voler associare questo gicoatore?',
-      text: "Non potrai tornarnare indietro, l'acquisto non è rimborsabile",
+      title: 'Sicuro di voler associare questo giocatore?',
+      text: "Non potrai tornare indietro, l'acquisto non è rimborsabile",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -158,7 +158,7 @@ export class EstrazioneComponent implements OnInit {
       Swal.fire({
         icon: 'success',
         title: 'Complimenti',
-        text: "Tutti i giocatori " + this.roleSelected + " sono stati estratti!",
+        text: "Tutti i giocatori " + this.getPosition(this.roleSelected) + " sono stati estratti!",
       })
     }
     localStorage.setItem('players', JSON.stringify(this.playerArr));

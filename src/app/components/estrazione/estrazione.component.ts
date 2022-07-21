@@ -265,12 +265,14 @@ export class EstrazioneComponent implements OnInit {
     this.isLoader = true;
     let tmp = JSON.parse(JSON.stringify(SerieA));
     tmp.teams.forEach((team: any, index: number) => {
-      setTimeout(()=> {
-      team.squad = this.GetTransfer(team.id);
-    }, index * 1000);
-    });
-    localStorage.setItem('SerieA', JSON.stringify(tmp));
-    this.GenerateData();
+      setTimeout(() => {
+        team.squad = this.GetTransfer(team.id);
+      }, index * 1100);
+    })
+    setTimeout(() => {
+      localStorage.setItem('SerieA', JSON.stringify(tmp));
+      this.GenerateData()
+    }, 28000);
     this.isLoader = false;
   }
 
@@ -285,7 +287,7 @@ export class EstrazioneComponent implements OnInit {
       }
     };
     axios.request(options).then(function (response) {
-      return response.data;
+      return response.data.squad;
     }).catch(function (error) {
       console.error(error);
     });

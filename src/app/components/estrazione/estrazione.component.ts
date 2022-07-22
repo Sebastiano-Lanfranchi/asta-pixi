@@ -37,6 +37,7 @@ export class EstrazioneComponent implements OnInit {
   updateSerieA: any;
   jsonDown: any;
   tmp: any;
+  mirror: any;
 
   constructor(public firebaseService: FirebaseService, private spinner: NgxSpinnerService, private sanitizer: DomSanitizer) {
 
@@ -261,22 +262,21 @@ export class EstrazioneComponent implements OnInit {
     }
   }
 
-   UpdateSquadPlayer() {
+  UpdateSquadPlayer() {
     this.isLoader = true;
-    let tmp = JSON.parse(JSON.stringify(SerieA));
-    tmp.teams.forEach((team: any, index: number) => {
-      setTimeout(() => {
-        this.GetTransfer(team.id,  team.squad);
+    this.mirror= JSON.parse(JSON.stringify(SerieA));
+    this.mirror.teams.forEach((team: any, index: number) => {
+      setTimeout(async () => {
+        this.GetTransfer(team.id);
       }, index * 1100);
     })
     setTimeout(() => {
-      localStorage.setItem('SerieA', JSON.stringify(tmp));
       this.GenerateData()
     }, 28000);
     this.isLoader = false;
   }
 
- GetTransfer(data: string, associa: any) {
+  async GetTransfer(data: string) {
     const options = {
       method: 'GET',
       url: 'https://transfermarket.p.rapidapi.com/clubs/get-squad',
@@ -286,8 +286,14 @@ export class EstrazioneComponent implements OnInit {
         'X-RapidAPI-Host': 'transfermarket.p.rapidapi.com'
       }
     };
-    axios.request(options).then(function (response) {
-      associa = response.data.squad;
+    await axios.request(options).then((response) => {
+      this.mirror.teams.forEach((team: any) => {
+        if(team.id == data){
+          team = response.data.squad;
+          localStorage.setItem('SerieA', JSON.stringify(this.mirror));
+        }
+        
+      })
     }).catch(function (error) {
       console.error(error);
     });

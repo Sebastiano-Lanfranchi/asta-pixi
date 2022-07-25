@@ -119,13 +119,13 @@ export class EstrazioneComponent implements OnInit {
   GetClass(type: string) {
     let result = '';
     if (type == 'normal') {
-      result = 'bg-[url(src/assets/normal.png)] text-black'
+      result = 'bg-[url(src/assets/normal23.png)] text-black'
     } else if (type == 'bad') {
-      result = 'bg-[url(src/assets/bad.png)] text-black'
+      result = 'bg-[url(src/assets/bad23.png)] text-black'
     } else if (type == 'good') {
-      result = 'bg-[url(src/assets/gold1.png)] text-black'
+      result = 'bg-[url(src/assets/gold23.png)] text-black'
     } else if (type == 'top') {
-      result = 'bg-[url(src/assets/op.png)] text-white'
+      result = 'bg-[url(src/assets/op23.png)] text-black'
     } else if (type == 'captain') {
       result = 'bg-[url(src/assets/captain.png)] text-white'
     }
@@ -190,7 +190,7 @@ export class EstrazioneComponent implements OnInit {
       Swal.fire({
         icon: 'success',
         title: 'Complimenti',
-        text: "Tutti i giocatori " + this.getPosition(this.roleSelected) + " sono stati estratti!",
+        text: "Tutti i giocatori " + this.GetRole(this.roleSelected) + " sono stati estratti!",
       })
     }
     localStorage.setItem('players', JSON.stringify(this.playerArr));
@@ -293,42 +293,6 @@ export class EstrazioneComponent implements OnInit {
     }
   }
 
-  UpdateSquadPlayer() {
-    this.isLoader = true;
-    this.mirror= JSON.parse(JSON.stringify(SerieA));
-    this.mirror.teams.forEach((team: any, index: number) => {
-      setTimeout(async () => {
-        this.GetTransfer(team.id);
-      }, index * 1100);
-    })
-    setTimeout(() => {
-      this.GenerateData()
-    }, 28000);
-    this.isLoader = false;
-  }
-
-  async GetTransfer(data: string) {
-    const options = {
-      method: 'GET',
-      url: 'https://transfermarket.p.rapidapi.com/clubs/get-squad',
-      params: { id: data },
-      headers: {
-        'X-RapidAPI-Key': '2dc7824b3cmsh3c8fdbe72d2cae1p183851jsn860ba2af6845',
-        'X-RapidAPI-Host': 'transfermarket.p.rapidapi.com'
-      }
-    };
-    await axios.request(options).then((response) => {
-      this.mirror.teams.forEach((team: any) => {
-        if(team.id == data){
-          team = response.data.squad;
-          localStorage.setItem('SerieA', JSON.stringify(this.mirror));
-        }
-        
-      })
-    }).catch(function (error) {
-      console.error(error);
-    });
-  }
 
   GenerateData() {
     let dataTeams = JSON.parse(localStorage.getItem('SerieA')!);

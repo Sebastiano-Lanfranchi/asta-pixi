@@ -13,7 +13,7 @@
         <div *ngIf="squad.open == true">
             <table class="w-full text-sm text-left text-gray-400">
                 <thead class="text-xs uppercase bg-gray-700 text-gray-400">
-                    <tr>
+                    <tr class="text-center">
                         <th scope="col" class="py-3 px-6">
                             Immagine
                         </th>
@@ -32,9 +32,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class=" border-b bg-gray-800 border-gray-700" *ngFor="let player of squad.players">
+                    <tr class=" border-b bg-gray-800 border-gray-700 text-center" *ngFor="let player of squad.players">
                         <th scope="row" class="py-4 px-6 font-medium  whitespace-nowrap text-white">
-                            <img [src]="player.photo" class="w-14">
+                            <img [src]="player.image" class="w-14 mx-auto" >
                         </th>
                         <th scope="row" class="py-4 px-6 font-medium  whitespace-nowrap text-white">
                             {{player.name}}
@@ -46,7 +46,7 @@
                             {{player.team}}
                         </td>
                         <td class="py-4 px-6 text-white">
-                            <img [src]="player.logoT" class="w-14">
+                            <img [src]="player.logoT" class="w-14 mx-auto">
                         </td>
                     </tr>
                 </tbody>

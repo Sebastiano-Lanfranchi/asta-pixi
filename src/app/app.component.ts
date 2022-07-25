@@ -12,6 +12,7 @@ export class AppComponent {
   title = 'asta-pixi';
   email: string = '';
   password: string = '';
+  generate: any;
   @ViewChild('header') header!: HeaderComponent;
 
   constructor(public switchPage: SwitchPageService, public auth: AngularFireAuth) {
@@ -20,5 +21,9 @@ export class AppComponent {
 
    login() {
     this.auth.signInWithEmailAndPassword(this.email, this.password);
+  }
+
+  receiveGenerate($event: any) {
+    this.generate = $event
   }
 }

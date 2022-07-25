@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Squad } from '../../models/squad.model';
 import { FirebaseService } from '../../services/firebase-service.service';
-import axios from 'Axios';
-import * as SerieA from '../../json/serieA.json';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-squadre-gen',
@@ -24,3 +21,5 @@ export class SquadreGenComponent implements OnInit {
     })
   }
 }
+
+

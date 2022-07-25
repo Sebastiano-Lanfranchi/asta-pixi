@@ -88,7 +88,11 @@
             <ng-container *ngFor="let find of arrfilter[0]">
                 <div Class="flex justify-center mx-8 mb-5 p-1 bg-cover bg-no-repeat w-80 pb-14"
                     [ngClass]="GetClass(find.type)" *ngIf="find.preso != true">
+<<<<<<< HEAD
                     <div class="rounded-lg shadow-lg w-48 text-center mt-8">
+=======
+                    <div class="rounded-lg shadow-lg w-52 text-center mt-8">
+>>>>>>> 0a5970af62458b39e60b984252a4ca86a6685c4d
                         <a href="#!">
                             <img class="rounded-t-lg m-1" style="margin: 0 auto" [src]="find.image" alt="" />
                         </a>
@@ -97,7 +101,11 @@
                             <div>
                                 <div>{{find.team}}</div>
                                 <div>
+<<<<<<< HEAD
                                     <b>{{GetRole(find.positions.first.group)}}</b>
+=======
+                                    {{getPosition(find.positions.first.group)}}
+>>>>>>> 0a5970af62458b39e60b984252a4ca86a6685c4d
                                 </div>
                                 <div style="margin: 0 auto"><img [src]="find.logoT" style="margin: 0 auto" class="w-10">
                                 </div>
@@ -112,6 +120,7 @@
     </div>
 </div>
 <div *ngIf="isLoader" class="spinner">
-    <img class="spinner-img" src="../../../assets/soccer_ball2.svg">
     <p class=" text-white text-center"><b>Aggiornamento rosa squadre...</b></p>
+    <br />
+    <img class="spinner-img" src="../../../assets/soccer_ball2.svg">
 </div>

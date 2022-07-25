@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase-service.service'
 import Swal from 'sweetalert2';
 
@@ -16,7 +16,6 @@ import axios from 'Axios';
 
 export class EstrazioneComponent implements OnInit {
 
-  dataTeams!: any;
   players: any = [];
   playerArr: any;
   filtroNome: any = '';
@@ -38,6 +37,7 @@ export class EstrazioneComponent implements OnInit {
   updateSerieA: any;
   jsonDown: any;
   tmp: any;
+  mirror: any;
 
   constructor(public firebaseService: FirebaseService, private spinner: NgxSpinnerService, private sanitizer: DomSanitizer) {
 
@@ -55,8 +55,8 @@ export class EstrazioneComponent implements OnInit {
 
   Associa() {
     Swal.fire({
-      title: 'Sicuro di voler associare questo gicoatore?',
-      text: "Non potrai tornarnare indietro, l'acquisto non è rimborsabile",
+      title: 'Sicuro di voler associare questo giocatore?',
+      text: "Non potrai tornare indietro, l'acquisto non è rimborsabile",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -167,9 +167,9 @@ export class EstrazioneComponent implements OnInit {
   SelectRandom() {
     var BreakException = {}
     this.playerArr = JSON.parse(localStorage.getItem('players')!).sort(() => 0.5 - Math.random());
-    let tempArr = [...this.playerArr.filter((x: any) => x.positions.first.group == this.roleSelected)]
-    if (tempArr.some((x: any) => x.estratto !== true && x.positions.first.group == this.roleSelected)) {
-      let daCiclare = tempArr.filter(z => z.estratto == false && z.positions.first.group == this.roleSelected);
+    let tempArr = [...this.playerArr.filter((x: any) => this.roleSelected.includes(x.positions.first.group))]
+    if (tempArr.some((x: any) => x.estratto !== true && this.roleSelected.includes(x.positions.first.group))) {
+      let daCiclare = tempArr.filter(z => z.estratto == false && this.roleSelected.includes(z.positions.first.group));
       localStorage.setItem('selectedPlayer', JSON.stringify(daCiclare[0]));
       this.selectedPlayer = JSON.parse(localStorage.getItem('selectedPlayer')!);
       this.playerArr.forEach((player: any) => {
@@ -190,18 +190,19 @@ export class EstrazioneComponent implements OnInit {
       Swal.fire({
         icon: 'success',
         title: 'Complimenti',
-        text: "Tutti i giocatori " + this.roleSelected + " sono stati estratti!",
+        text: "Tutti i giocatori " + this.getPosition(this.roleSelected) + " sono stati estratti!",
       })
     }
     localStorage.setItem('players', JSON.stringify(this.playerArr));
   }
 
   SelectFiltered() {
+    this.playerArr = [];
     this.playerArr = JSON.parse(localStorage.getItem('players')!).sort(() => 0.5 - Math.random());
     let tempArr = [...this.playerArr].filter(p => p.preso == false);
     this.arrfilter = [];
     if (this.filtroNome != '' && this.filtroTeam != '' && this.filtroRole != '') {
-      this.arrfilter.push(tempArr.filter((x: any) => x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && x.team.toLowerCase().includes(this.filtroTeam.toLowerCase()) && x.position == this.filtroRole));
+      this.arrfilter.push(tempArr.filter((x: any) => x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && x.team.toLowerCase().includes(this.filtroTeam.toLowerCase()) && this.filtroRole.includes(x.positions.first.group)));
     } else if (this.filtroNome == '' && this.filtroTeam != '' && this.filtroRole == '') {
       this.arrfilter.push(tempArr.filter((x: any) => x.team.toLowerCase().includes(this.filtroTeam.toLowerCase())));
     } else if (this.filtroNome != '' && this.filtroTeam == '' && this.filtroRole == '') {
@@ -211,9 +212,9 @@ export class EstrazioneComponent implements OnInit {
     } else if (this.filtroNome != '' && this.filtroTeam != '' && this.filtroRole == '') {
       this.arrfilter.push(tempArr.filter((x: any) => x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && x.team.toLowerCase().includes(this.filtroTeam.toLowerCase())));
     } else if (this.filtroNome == '' && this.filtroTeam != '' && this.filtroRole != '') {
-      this.arrfilter.push(tempArr.filter((x: any) => x.team.toLowerCase().includes(this.filtroTeam.toLowerCase()) && x.position == this.filtroRole));
+      this.arrfilter.push(tempArr.filter((x: any) => x.team.toLowerCase().includes(this.filtroTeam.toLowerCase()) && this.filtroRole.includes(x.positions.first.group)));
     } else if (this.filtroNome != '' && this.filtroTeam == '' && this.filtroRole != '') {
-      this.arrfilter.push(tempArr.filter((x: any) => x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && x.position == this.filtroRole));
+      this.arrfilter.push(tempArr.filter((x: any) => x.name.toLowerCase().includes(this.filtroNome.toLowerCase()) && this.filtroRole.includes(x.positions.first.group)));
     }
     this.ready = true;
     console.log(this.arrfilter)
@@ -292,15 +293,52 @@ export class EstrazioneComponent implements OnInit {
     }
   }
 
+  UpdateSquadPlayer() {
+    this.isLoader = true;
+    this.mirror= JSON.parse(JSON.stringify(SerieA));
+    this.mirror.teams.forEach((team: any, index: number) => {
+      setTimeout(async () => {
+        this.GetTransfer(team.id);
+      }, index * 1100);
+    })
+    setTimeout(() => {
+      this.GenerateData()
+    }, 28000);
+    this.isLoader = false;
+  }
+
+  async GetTransfer(data: string) {
+    const options = {
+      method: 'GET',
+      url: 'https://transfermarket.p.rapidapi.com/clubs/get-squad',
+      params: { id: data },
+      headers: {
+        'X-RapidAPI-Key': '2dc7824b3cmsh3c8fdbe72d2cae1p183851jsn860ba2af6845',
+        'X-RapidAPI-Host': 'transfermarket.p.rapidapi.com'
+      }
+    };
+    await axios.request(options).then((response) => {
+      this.mirror.teams.forEach((team: any) => {
+        if(team.id == data){
+          team = response.data.squad;
+          localStorage.setItem('SerieA', JSON.stringify(this.mirror));
+        }
+        
+      })
+    }).catch(function (error) {
+      console.error(error);
+    });
+  }
+
   GenerateData() {
-    this.dataTeams = JSON.parse(localStorage.getItem('SerieA')!);
-    this.dataTeams.teams.forEach((x: any) => {
+    let dataTeams = JSON.parse(localStorage.getItem('SerieA')!);
+    dataTeams.teams.forEach((x: any) => {
       x.squad.forEach((y: any) => {
         y['team'] = x.name;
         y['estratto'] = false;
         y['preso'] = false;
         y['logoT'] = x.image;
-        if (y.marketValue.value >= 50000000)
+        if (y.marketValue.value >= 40000000)
           y['type'] = 'top'
         else if (y.marketValue.value >= 10000000)
           y['type'] = 'good'
@@ -319,7 +357,7 @@ export class EstrazioneComponent implements OnInit {
       Swal.fire({
         icon: 'success',
         title: 'Estrazione generata',
-        text: 'Eliminazione generata con successo!',
+        text: 'Estrazione generata con successo!',
       })
       this.daGenerare = false;
       this.isLoader = false;
@@ -327,6 +365,7 @@ export class EstrazioneComponent implements OnInit {
   }
 
   Elimina() {
+    this.players = [];
     Swal.fire({
       title: "Sicuro di voler elmminare l'estrazione corrente?",
       text: "Tutti i giocatori estratti e acquistati saranno riportati allo stato iniziale",

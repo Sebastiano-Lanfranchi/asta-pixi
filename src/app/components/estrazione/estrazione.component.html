@@ -30,16 +30,16 @@
             </select>
         </div>
         <div class="card bg-contain bg-no-repeat"
-            [ngClass]="{'bg-[url(src/assets/gold1.png)] text-black': !selectedPlayer.top, 'bg-[url(src/assets/op.png)] text-white': selectedPlayer.top}">
-            <div class="card-img" [ngClass]="{' text-black': !selectedPlayer.top, ' text-white': selectedPlayer.top}">
+        [ngClass]="GetClass(selectedPlayer.type)">
+            <div class="card-img">
                 <img class="block mx-auto border border-black" [src]="selectedPlayer.image">
                 <div class="flex justify-center items-center">
                     <div class="mt-3 text-2xl w-52 mr-3"><b>{{selectedPlayer.name}}</b></div>
-                    <div class="logo"><img style="width: 45px; height: 45px" [src]="selectedPlayer.logoT"></div>
+                    <div class="logo"><img style="width: 45px; height: 50px" [src]="selectedPlayer.logoT"></div>
                 </div>
                 <div class="flex  justify-center mr-3">
-                    <div class="mr-2">Age: {{selectedPlayer.age}}</div>
-                    <div>Role: {{selectedPlayer.position}}</div>
+                    <div class="mr-2"><b>Age:</b> {{selectedPlayer.age}}</div>
+                    <div><b>Role:</b>  {{GetRole(selectedPlayer.positions.first.group)}}</div>
                 </div>
             </div>
             <div class="card-footer m-2 pt-16">
@@ -75,7 +75,7 @@
             <div>
                 <label>role:</label>
                 <select [(ngModel)]="filtroRole" class="text-cyan-50 bg-slate-900 m-2 w-64">
-                    <option *ngFor="let position of roleArr" [value]="position">{{position}}</option>
+                    <option *ngFor="let position of roleArr" [value]="position.value">{{position.it}}</option>
                 </select>
             </div>
             <div>
@@ -85,7 +85,7 @@
         </div>
         <div class="flex justify-around w-3/4 flex-wrap" style="margin: 0 auto" *ngIf="ready">
             <ng-container *ngFor="let find of arrfilter[0]">
-                <div Class="flex justify-center mx-8 mb-5 p-1 bg-cover bg-no-repeat w-80 pb-14" [ngClass]="{'bg-[url(src/assets/gold1.png)] text-black': find.type == 'good', 'bg-[url(src/assets/normal.png)] text-black': find.type == 'normal','bg-[url(src/assets/op.png)] text-white': find.type=='top', 'bg-[url(src/assets/captain.png)] text-white': find.type =='captain'}"
+                <div Class="flex justify-center mx-8 mb-5 p-1 bg-cover bg-no-repeat w-80 pb-14" [ngClass]="GetClass(find.type)"
                  *ngIf="find.preso != true">
                     <div class="rounded-lg shadow-lg w-52 text-center mt-8">
                         <a href="#!">
@@ -95,20 +95,9 @@
                             <h5 class="text-xl font-medium mb-2">{{find.name}}</h5>
                             <div>
                                 <div>{{find.team}}</div>
+                                {{find.positions.first.group}}
                                 <div>   
-                                    <ng-template *ngIf="find.positions.first.group == 'Mittelfeld'">
-                                        Centrocampista
-                                    </ng-template>
-                                    <ng-template *ngIf="find.positions.first.group == 'Mittelfeld'">
-                                        Centrocampista
-                                    </ng-template>
-                                    <ng-template *ngIf="find.positions.first.group == 'Mittelfeld'">
-                                        Centrocampista
-                                    </ng-template>
-                                    <ng-template *ngIf="find.positions.first.group == 'Mittelfeld'">
-                                        Centrocampista
-                                    </ng-template>
-                                   
+                                  {{GetRole(find.positions.first.group)}} 
                                 </div>
                                 <div style="margin: 0 auto"><img [src]="find.logoT" style="margin: 0 auto" class="w-10">
                                 </div>

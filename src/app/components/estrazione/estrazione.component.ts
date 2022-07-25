@@ -30,7 +30,7 @@ export class EstrazioneComponent implements OnInit {
   squadSub: any;
   squadSelected: any;
   creditiSpesi = 0;
-  roleArr = [{ value: 'Torwart', it: 'Portiere' }, { value: 'Abwehr', it: 'Difensore' }, { value: 'Midfielder', it: 'centrocampista' }, { value:['Attacker', 'Sturm'] , it: 'Attaccante' }];
+  roleArr = [{ value: 'Torwart', it: 'Portiere' }, { value: 'Abwehr', it: 'Difensore' }, { value: 'Midfielder', it: 'centrocampista' }, { value: ['Attacker', 'Sturm'], it: 'Attaccante' }];
   roleSelected = 'Torwart';
   estrMancanti = 0;
   isFiltered = false;
@@ -144,6 +144,35 @@ export class EstrazioneComponent implements OnInit {
       return isReady
     }
   }
+
+  GetRole(role: string) {
+    let result = '';
+    if (role == 'Mittelfeld') {
+      result = 'Centrocampista'
+    } else if (role == 'Torwart') {
+      result = 'Portiere'
+    } else if (role == 'Attacker' || role == 'Sturm') {
+      result = 'Attaccante'
+    } else if (role == 'Abwehr') {
+      result = 'Difensore'
+    }
+    return result
+  }
+
+  GetClass(type: string) {
+    let result = '';
+    if (type == 'normal') {
+      result = 'bg-[url(src/assets/normal.png)] text-black'
+    } else if (type == 'good') {
+      result = 'bg-[url(src/assets/gold1.png)] text-black'
+    } else if (type == 'top') {
+      result = 'bg-[url(src/assets/op.png)] text-white'
+    } else if (type == 'captain') {
+      result = 'bg-[url(src/assets/captain.png)] text-white'
+    }
+    return result
+  }
+
 
   GetTransfer() {
     const options = {

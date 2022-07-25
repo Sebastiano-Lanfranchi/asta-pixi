@@ -1,21 +1,37 @@
 <div class="flex justify-aroundr" style="width: 95%; margin: 0 auto">
     <div class="preview-container sm:mb-4 w-1/3" style="color: aliceblue; " *ngIf="squad != undefined">
-        <table class="table-auto my-0 mx-auto" >
-            <thead class="text-center ">
-                <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Crediti</th>
-                    <th scope="col">Logo</th>
-                    <th scope="col">Elimina</th>
+        <table class="w-full text-sm text-left text-gray-400">
+            <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+                <tr class="text-center">
+                    <th scope="col" class="py-3 px-6">
+                        Nome
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Crediti
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Logo
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Elimina
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let squadArr of arrSquadre" class="text-center">
-                    <th scope="row" class="border-y">{{squadArr.nome}}</th>
-                    <td class="border-y">{{squadArr.crediti}}</td>
-                    <td class="border-y"><img style="width: 20px; height:20px" [src]="squadArr.logo"></td>
-                    <td class="border-y"><i class="fa-solid fa-trash text-red-500 cPointer"
-                            (click)="firebaseService.DeleteSquad(squadArr)"></i></td>
+                <tr class=" border-b bg-gray-800 border-gray-700 text-center" *ngFor="let squadArr of arrSquadre" >
+                    <th scope="row" class="py-4 px-6 font-medium  whitespace-nowrap text-white text" >
+                        {{squadArr.nome}}
+                    </th>
+                    <td scope="row" class="py-4 px-6 font-medium  whitespace-nowrap text-white">
+                        {{squadArr.crediti}}
+                    </td>
+                    <td class="py-4 px-6 text-white">
+                        <img style="width: 40px; height:40px; margin: 0 auto;" [src]="squadArr.logo">
+                    </td>
+                    <td class="py-4 px-6 text-white">
+                        <i class="fa-solid fa-trash text-red-500 cPointer"
+                        (click)="firebaseService.DeleteSquad(squadArr)"></i>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -49,5 +65,3 @@
         <div *ngIf="squad.logo != ''"><img [src]="squad.logo" alt='logo' style="width: 150px; height: 150px"></div>
     </div>
 </div>
-<button type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mt-2"
-(click)="UpdateSquadPlayer()">Aggiorna Json</button>

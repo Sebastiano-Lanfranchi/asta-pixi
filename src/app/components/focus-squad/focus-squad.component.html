@@ -11,8 +11,8 @@
             <div><i *ngIf="squad.open==false" class="fa-solid fa-eye" (click)="squad.open = true"></i><i *ngIf="squad.open==true" (click)="squad.open = false" class="fa-solid fa-eye-slash"></i></div>
         </div>
         <div *ngIf="squad.open == true">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="w-full text-sm text-left text-gray-400">
+                <thead class="text-xs uppercase bg-gray-700 text-gray-400">
                     <tr>
                         <th scope="col" class="py-3 px-6">
                             Immagine
@@ -32,11 +32,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let player of squad.players">
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <tr class=" border-b bg-gray-800 border-gray-700" *ngFor="let player of squad.players">
+                        <th scope="row" class="py-4 px-6 font-medium  whitespace-nowrap text-white">
                             <img [src]="player.photo" class="w-14">
                         </th>
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <th scope="row" class="py-4 px-6 font-medium  whitespace-nowrap text-white">
                             {{player.name}}
                         </th>
                         <td class="py-4 px-6 text-white">

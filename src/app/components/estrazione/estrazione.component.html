@@ -14,6 +14,8 @@
         estrazione</button>
     <button *ngIf="daGenerare == false" (click)="Elimina()" type="button"
         class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2 w-48">Elimina estrazione</button>
+    <button type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mt-2"
+        (click)="UpdateSquadPlayer()">Aggiorna Json</button>
     <a class="bg-yellow-500 hover:bg-yellow-700 text-white text-center font-bold py-2 px-4 rounded mt-2 w-48"
         title="Download JSON" [href]="jsonDown" download="download.json">Download json</a>
     <button type="button" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded mt-2 w-40"
@@ -29,8 +31,7 @@
                 <option *ngFor="let position of roleArr" [value]="position.value">{{position.it}}</option>
             </select>
         </div>
-        <div class="card bg-contain bg-no-repeat"
-        [ngClass]="GetClass(selectedPlayer.type)">
+        <div class="card bg-contain bg-no-repeat" [ngClass]="GetClass(selectedPlayer.type)">
             <div class="card-img">
                 <img class="block mx-auto border border-black" [src]="selectedPlayer.image">
                 <div class="flex justify-center items-center">
@@ -39,7 +40,7 @@
                 </div>
                 <div class="flex  justify-center mr-3">
                     <div class="mr-2"><b>Age:</b> {{selectedPlayer.age}}</div>
-                    <div><b>Role:</b>  {{GetRole(selectedPlayer.positions.first.group)}}</div>
+                    <div><b>Role:</b> {{GetRole(selectedPlayer.positions.first.group)}}</div>
                 </div>
             </div>
             <div class="card-footer m-2 pt-16">
@@ -85,9 +86,9 @@
         </div>
         <div class="flex justify-around w-3/4 flex-wrap" style="margin: 0 auto" *ngIf="ready">
             <ng-container *ngFor="let find of arrfilter[0]">
-                <div Class="flex justify-center mx-8 mb-5 p-1 bg-cover bg-no-repeat w-80 pb-14" [ngClass]="GetClass(find.type)"
-                 *ngIf="find.preso != true">
-                    <div class="rounded-lg shadow-lg w-52 text-center mt-8">
+                <div Class="flex justify-center mx-8 mb-5 p-1 bg-cover bg-no-repeat w-80 pb-14"
+                    [ngClass]="GetClass(find.type)" *ngIf="find.preso != true">
+                    <div class="rounded-lg shadow-lg w-48 text-center mt-8">
                         <a href="#!">
                             <img class="rounded-t-lg m-1" style="margin: 0 auto" [src]="find.image" alt="" />
                         </a>
@@ -95,9 +96,8 @@
                             <h5 class="text-xl font-medium mb-2">{{find.name}}</h5>
                             <div>
                                 <div>{{find.team}}</div>
-                                {{find.positions.first.group}}
-                                <div>   
-                                  {{GetRole(find.positions.first.group)}} 
+                                <div>
+                                    <b>{{GetRole(find.positions.first.group)}}</b>
                                 </div>
                                 <div style="margin: 0 auto"><img [src]="find.logoT" style="margin: 0 auto" class="w-10">
                                 </div>

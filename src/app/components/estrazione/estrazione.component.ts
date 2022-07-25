@@ -102,49 +102,6 @@ export class EstrazioneComponent implements OnInit {
     })
   }
 
-
-  async UpdateSquadPlayer() {
-    this.isLoader = true;
-    if (!JSON.parse(localStorage.getItem('SerieAOk')!)) {
-      let tmp = JSON.parse(JSON.stringify(SerieA));
-      var isReady = new Promise((resolve, reject) => {
-        this.isLoader = true;
-        tmp.teams.forEach((team: any, index: any) => {
-          setTimeout(() => {
-            const options = {
-              method: 'GET',
-              url: 'https://v3.football.api-sports.io/players/squads',
-              params: { team: team.team.id },
-              headers: {
-                "x-rapidapi-host": "v3.football.api-sports.io",
-                "x-rapidapi-key": "11d9e2510d0bf0efdc2fcc80b67358da"
-              }
-            };
-            axios.request(options).then((response) => {
-              if (response.data.reponse[0].players) {
-                team.team.players = response.data.reponse[0].players;
-                localStorage.setItem('SerieAOk', JSON.stringify(tmp));
-              }
-            }).catch((error) => {
-              localStorage.setItem('SerieAOk', JSON.stringify(SerieA));
-              this.GenerateData()
-              console.error(error);
-            });
-          }, 400 * (index + 1));
-          this.isLoader = false;
-          this.GenerateData();
-          Swal.fire(
-            'Ottimo!',
-            'Ultimi aggiornamenti di mercato salvati!',
-            'success'
-          )
-          resolve(true)
-        });
-      });
-      return isReady
-    }
-  }
-
   GetRole(role: string) {
     let result = '';
     if (role == 'Mittelfeld') {
@@ -163,6 +120,8 @@ export class EstrazioneComponent implements OnInit {
     let result = '';
     if (type == 'normal') {
       result = 'bg-[url(src/assets/normal.png)] text-black'
+    } else if (type == 'bad') {
+      result = 'bg-[url(src/assets/bad.png)] text-black'
     } else if (type == 'good') {
       result = 'bg-[url(src/assets/gold1.png)] text-black'
     } else if (type == 'top') {
@@ -174,25 +133,33 @@ export class EstrazioneComponent implements OnInit {
   }
 
 
-  GetTransfer() {
-    const options = {
-      method: 'GET',
-      url: 'https://transfermarket.p.rapidapi.com/clubs/get-squad',
-      params: { id: '2919' },
-      headers: {
-        'X-RapidAPI-Key': '2dc7824b3cmsh3c8fdbe72d2cae1p183851jsn860ba2af6845',
-        'X-RapidAPI-Host': 'transfermarket.p.rapidapi.com'
-      }
+  UpdateSquadPlayer() {
+    this.isLoader = true;
+    let tmp = JSON.parse(JSON.stringify(SerieA));
+    for (let index = 0; index < tmp.teams.length; index++) {
+      setTimeout(() => {
+        const options = {
+          method: 'GET',
+          url: 'https://transfermarket.p.rapidapi.com/clubs/get-squad',
+          params: { id: tmp.teams[index].id },
+          headers: {
+            'X-RapidAPI-Key': '2dc7824b3cmsh3c8fdbe72d2cae1p183851jsn860ba2af6845',
+            'X-RapidAPI-Host': 'transfermarket.p.rapidapi.com'
+          }
+        };
+        axios.request(options).then(async function (response) {
+          tmp.teams[index].squad = await response.data.squad;
+          localStorage.setItem('SerieA', JSON.stringify(tmp))
+        }).catch(function (error) {
+          console.error(error);
+        });
+      }, 1000 * index);
     };
-
-    axios.request(options).then(function (response) {
-      console.log(response.data);
-    }).catch(function (error) {
-      console.error(error);
-    });
+    this.isLoader = false;
   }
+
   generateDownloadJsonUri() {
-    var theJSON = JSON.stringify(JSON.parse(localStorage.getItem('SerieAOk')!));
+    var theJSON = JSON.stringify(JSON.parse(localStorage.getItem('SerieA')!));
     var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
     this.jsonDown = uri;
   }
@@ -337,8 +304,10 @@ export class EstrazioneComponent implements OnInit {
           y['type'] = 'top'
         else if (y.marketValue.value >= 10000000)
           y['type'] = 'good'
-        else if (y.marketValue.value < 10000000)
+        else if (y.marketValue.value >= 3000000)
           y['type'] = 'normal'
+        else if (y.marketValue.value < 3000000)
+          y['type'] = 'bad'
         if (y.captain == true)
           y['type'] = 'captain'
         this.players.push(y)

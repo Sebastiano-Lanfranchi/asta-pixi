@@ -1,12 +1,12 @@
 
-<section>
-  <nav>
-    <p style="text-align: center;">Asta-PIXI</p>
-    <ul class="menuItems" style="margin: 0 auto; width: fit-content">
-      <li><a href='#' (click)="switchPage.SwitchPage('panSquad')">Home</a></li>
-      <li><a href='#' (click)="switchPage.SwitchPage('genSquad')">Impostazioni</a></li>
-      <li><a href='#' (click)="switchPage.SwitchPage('estr')">Estrazione</a></li>
-      <li><button type="button" class="bg-slate-500 hover:bg-slate-700 text-white font-bold p-1 rounded" (click)="logout()">LogOut</button></li>
-    </ul>
-  </nav>
-</section>
+
+<div class="topnav text-center mb-10" id="myTopnav">
+  <span class="mr-5 ml-2 mt-3 text-center text-white ">ASTA-PIXI</span>
+  <a (click)="switchPage.SwitchPage('panSquad')" class="active">Home</a>
+  <a (click)="switchPage.SwitchPage('genSquad')">Impostazioni</a>
+  <a (click)="switchPage.SwitchPage('estr')">Estrazione</a>
+  <a type="button" class="bg-slate-500 hover:bg-slate-700 text-white font-bold p-1 rounded" (click)="logout()">LogOut</a>
+  <a href="javascript:void(0);" class="icon" (click)="openNav()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>

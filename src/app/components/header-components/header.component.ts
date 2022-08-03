@@ -29,5 +29,14 @@ export class HeaderComponent implements OnInit {
     this.auth.signInWithEmailAndPassword(this.email, this.password);
   }
 
+  openNav() {
+    let x = document.getElementById("myTopnav");
+    if (x!.className === "topnav") {
+      x!.className += " responsive";
+    } else {
+      x!.className = "topnav";
+    }
+  } 
+
 
 }
